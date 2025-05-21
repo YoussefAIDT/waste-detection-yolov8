@@ -8,8 +8,8 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # Informations sur le projet
 project = 'Waste Detection YOLOv8'
-author = 'Zakariae Zemmahi/ES-SAAIDI Youssef/HAJJI Mohamed'
-:release = '1.0'
+author = 'Zakariae Zemmahi / ES-SAAIDI Youssef / HAJJI Mohamed'
+release = '1.0'
 
 # Extensions utilisées par Sphinx
 extensions = [
