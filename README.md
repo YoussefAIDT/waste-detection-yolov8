@@ -10,7 +10,7 @@ Ce projet permet de détecter automatiquement les déchets (plastique, verre, m�
 
 - Ouvrir le fichier `yolov8_waste_detect.ipynb` dans ce dépôt.
 - Ou cliquer directement ici pour lancer dans Colab :  
-  [![Ouvrir dans Colab](https://colab.research.google.com/drive/1Qcwk9iofV9mklVqdsZgsP7Sr2bV9mLPa)
+  [![Ouvrir dans Colab]([https://colab.research.google.com/drive/1Qcwk9iofV9mklVqdsZgsP7Sr2bV9mLPa](https://colab.research.google.com/github/zakariazemmahi/waste-detection-yolov8/blob/main/yolov8_waste_detect.ipynb))
 
 ---
 
