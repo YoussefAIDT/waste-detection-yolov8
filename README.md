@@ -1,78 +1,76 @@
-# 🚮 Détection de déchets avec YOLOv8 + Streamlit (Google Colab)
+# Détection de déchets avec YOLOv8
 
-Ce projet permet de détecter automatiquement les déchets (plastique, verre, métal, papier, carton) à partir d’images ou de vidéos, en utilisant **YOLOv8**. Il inclut une application Web interactive avec **Streamlit**.
+Ce projet permet de détecter différents types de déchets à partir d'images et de vidéos en utilisant un modèle YOLOv8 pré-entraîné.
 
----
+## Guide d'installation et d'utilisation
 
-## ✅ Étapes d'utilisation
+### Étape 1 : Ouvrir le projet dans Google Colab
 
-### 1. Accéder au projet dans Google Colab
+1. Téléchargez le fichier notebook `yolov8_waste_detect.ipynb`
+2. Ouvrez Google Colab (https://colab.research.google.com/)
+3. Importez le notebook en cliquant sur "Fichier" > "Importer un notebook"
+4. Sélectionnez le fichier `yolov8_waste_detect.ipynb`
 
-- Ouvrir le fichier `yolov8_waste_detect.ipynb` dans ce dépôt.
-- Ou cliquer directement ici pour lancer dans Colab :  
-  https://colab.research.google.com/github/zakariazemmahi/waste-detection-yolov8/blob/main/yolov8_waste_detect.ipynb
+### Étape 2 : Installation des bibliothèques nécessaires
 
----
+Exécutez les cellules d'installation dans le notebook pour installer toutes les dépendances requises.
 
-### 2. Installer les bibliothèques nécessaires
+### Étape 3 : Téléchargement des données du projet
 
-Dans Colab, exécuter les cellules suivantes pour installer les dépendances :
+Suivez les instructions dans le notebook pour télécharger les données nécessaires.
 
-```bash
-pip install ultralytics opencv-python matplotlib streamlit localtunnel
-3. Télécharger le modèle YOLOv8 entraîné
-Aller sur GitHub et télécharger le fichier yolov8_best.pt.
+### Étape 4 : Intégration du modèle pré-entraîné
 
-Le placer dans ton Google Drive à cet emplacement exact :
+1. Accédez à GitHub pour télécharger le fichier de modèle `yolov8_best.pt`
+2. Connectez votre Google Drive à Colab
+3. Placez le modèle dans votre Google Drive en respectant le chemin suivant :
+   `/content/drive/MyDrive/yolov8_best.pt`
 
-bash
-Copier
-Modifier
-/content/drive/MyDrive/yolov8_best.pt
-4. Charger le modèle
-Tu n’as pas besoin de réentraîner le modèle. Il suffit d’exécuter cette cellule :
+### Étape 5 : Chargement du modèle
 
-python
-Copier
-Modifier
+Exécutez la cellule suivante dans le notebook :
+
+```python
 from ultralytics import YOLO
-
-# Charger ton modèle entraîné
+# Charger le modèle entraîné
 model = YOLO("/content/drive/MyDrive/yolov8_best.pt")
-5. Tester une image
-Télécharge une image contenant un déchet et nomme-la :
+```
 
-Copier
-Modifier
-image_test.jpg
-Exécute la cellule de prédiction dans le notebook pour afficher les résultats.
+### Étape 6 : Test du modèle
 
-6. Tester une vidéo (optionnel)
-Une cellule dans le notebook permet également de tester le modèle sur une vidéo.
+1. Téléchargez une image de test contenant des déchets et nommez-la `image_test.jpg`
+2. Exécutez la cellule de prédiction pour analyser l'image
+3. Visualisez les résultats de détection
 
-7. Lancer l’application Web (Streamlit)
-Les bibliothèques nécessaires doivent être déjà installées.
+Vous pouvez également tester le modèle sur des vidéos en suivant les instructions du notebook.
 
-Exécute toutes les cellules restantes dans le notebook.
+### Étape 7 : Lancement de l'application Streamlit
 
-Lance la commande suivante dans une cellule :
+1. Installez les bibliothèques requises pour Streamlit
+2. Exécutez toutes les cellules restantes du notebook
+3. Dans la cellule finale, exécutez :
+   ```
+   !streamlit run app.py & npx localtunnel --port 8501
+   ```
+4. Une URL sera générée
 
-bash
-Copier
-Modifier
-!streamlit run app.py & npx localtunnel --port 8501
-Une ligne affichera un code :
+### Étape 8 : Accès à l'interface web
 
-bash
-Copier
-Modifier
-!wget -q -O - ipv4.icanhazip.com
-Copie le code retourné par cette commande et colle-le dans :
+1. Exécutez la commande suivante pour obtenir votre adresse IP :
+   ```
+   !wget -q -O - ipv4.icanhazip.com
+   ```
+2. Copiez l'adresse IP affichée
+3. Dans la page qui s'ouvre après avoir cliqué sur l'URL générée, collez l'adresse IP dans le champ "Tunnel Password"
+4. Cliquez sur "Click to submit"
+5. Vous accéderez à l'interface web de l'application de détection de déchets
 
-yaml
-Copier
-Modifier
-Tunnel Password:
-Clique sur Click to Submit
+## Fonctionnalités
 
-Tu accèderas à l'application Streamlit depuis un lien généré
+- Détection de différents types de déchets sur des images
+- Analyse de vidéos pour la détection de déchets
+- Interface utilisateur web intuitive via Streamlit
+
+## Remarques
+
+Assurez-vous que votre session Colab reste active pendant l'utilisation de l'application Streamlit.
