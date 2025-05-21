@@ -6,11 +6,12 @@ Ce projet permet de détecter différents types de déchets à partir d'images e
 
 ### Étape 1 : Ouvrir le projet dans Google Colab
 
-1. Téléchargez le fichier notebook `yolov8_waste_detect.ipynb`
-2. Ouvrez Google Colab (https://colab.research.google.com/)
-3. Importez le notebook en cliquant sur "Fichier" > "Importer un notebook"
-4. Sélectionnez le fichier `yolov8_waste_detect.ipynb`
-
+1. Entre `yolov8_waste_detect.ipynb`
+2. cliquer sur "Open in colab"
+3. ou bien Télecharger `yolov8_waste_detect.ipynb`
+4. Ouvrez Google Colab (https://colab.research.google.com/)
+5. Importez le notebook en cliquant sur "Fichier" > "Importer un notebook"
+6. Sélectionnez le fichier `yolov8_waste_detect.ipynb`
 ### Étape 2 : Installation des bibliothèques nécessaires
 
 Exécutez les cellules d'installation dans le notebook pour installer toutes les dépendances requises.
