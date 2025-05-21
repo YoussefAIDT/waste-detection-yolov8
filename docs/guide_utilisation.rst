@@ -7,7 +7,14 @@ Ce guide explique comment exécuter le projet de détection de déchets avec YOL
 --------------------------------------------
 
 1. Accédez au fichier ``yolov8_waste_detect.ipynb`` dans le dépôt GitHub.
-2. Cliquez sur le bouton **Open in Colab** (ou ouvrez ce lien dans Colab).
+2. Cliquez sur le bouton ci-dessous pour ouvrir le notebook dans Colab :
+
+   .. raw:: html
+
+      <a href="https://colab.research.google.com/drive/1Qcwk9iofV9mklVqdsZgsP7Sr2bV9mLPa" target="_blank">
+          <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" style="margin-top: 10px;">
+      </a>
+
 3. Vous pouvez également télécharger le fichier ``yolov8_waste_detect.ipynb``.
 4. Rendez-vous sur https://colab.research.google.com/
 5. Cliquez sur **Fichier > Importer un notebook**
@@ -97,4 +104,3 @@ Remarques
 =========
 
 Assurez-vous que la session Colab reste **active et non expirée** pendant l’utilisation de l’application Web.
-
