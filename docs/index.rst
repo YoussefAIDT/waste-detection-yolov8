@@ -7,6 +7,7 @@ Bienvenue dans la documentation de Waste Detection YOLOv8 !
 
    usage
    streamlit
+   guide_utilisation
 
 Indices et tables
 ==================
