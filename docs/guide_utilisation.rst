@@ -1,84 +1,48 @@
 Guide d'utilisation
 ===================
 
-Ce projet permet de détecter automatiquement différents types de déchets dans des images ou vidéos à l'aide de modèles YOLOv8 pré-entraînés, combinant détection intelligente et classification.
+Ce guide vous explique comment utiliser Smart Waste Detection.
 
-Structure du projet
--------------------
+Prérequis
+---------
 
-Le projet comprend trois notebooks principaux :
+* Compte Google (pour Colab)
+* Connexion Internet stable
+* Navigateur web moderne
 
-- ``Smart_waste_detection.ipynb`` : modèle qui détecte si un objet est un déchet ou non.
-- ``yolov8_waste_detect.ipynb`` : modèle de classification des types de déchets.
-- ``Application_de_computer_vision.ipynb`` : application complète combinant détection + classification, avec interface Streamlit.
+Étapes d'utilisation
+--------------------
 
-Guide d'installation et d'utilisation (Google Colab + Streamlit)
------------------------------------------------------------------
+1. **Ouvrir Google Colab**
+   
+   Accédez au fichier ``Application_de_computer_vision.ipynb``
 
-1. **Ouvrir le projet sur Google Colab**
+2. **Charger les modèles**
+   
+   Téléchargez les fichiers ``.pt`` dans votre Google Drive
 
-   Accédez au dossier ``Models``, puis ouvrez le fichier ``Application_de_computer_vision.ipynb``. Cliquez sur *Open in Colab*.
+3. **Exécuter le notebook**
+   
+   Lancez toutes les cellules en séquence
 
-2. **Télécharger et importer les modèles pré-entraînés**
+4. **Accéder à l'interface**
+   
+   Cliquez sur le lien LocalTunnel généré
 
-   Récupérez les deux modèles depuis le dossier ``ModelsSauvegarde`` :
+Types de déchets détectés
+-------------------------
 
-   - ``yolov8_best.pt`` → classification du type de déchet
-   - ``yolov8_best_smartdetection.pt`` → détection déchet ou non
+* Plastique
+* Verre  
+* Métal
+* Papier
+* Carton
 
-   Placez-les dans votre Google Drive. Utilisez les chemins suivants dans le notebook :
+Résolution des problèmes
+------------------------
 
-   ::
+Si l'interface ne s'affiche pas :
 
-      model_detect = "/content/drive/MyDrive/yolov8_best_smartdetection.pt"
-      model_classify = "/content/drive/MyDrive/yolov8_best.pt"
-
-   .. note::
-
-      ✅ Astuce : activez l'exécution GPU dans Colab pour de meilleures performances.
-
-3. **Installer les dépendances**
-
-   Dans le notebook ``Application_de_computer_vision.ipynb`` :
-
-   - Montez Google Drive
-   - Installez les bibliothèques nécessaires : ``ultralytics``, ``streamlit``, etc.
-   - Générez le fichier ``app.py`` avec le code de l'application
-
-4. **Lancer l'application web Streamlit via LocalTunnel**
-
-   Exécutez la cellule suivante pour récupérer l'adresse IP publique :
-
-   ::
-
-      !wget -q -O - ipv4.icanhazip.com
-
-   Puis lancez Streamlit avec tunnel public :
-
-   ::
-
-      !streamlit run app.py & npx localtunnel --port 8501
-
-   Une URL de type ``https://xxxxx.loca.lt`` s’affichera. Cliquez dessus pour accéder à l’application.
-
-5. **Utilisation de l’interface web**
-
-   - Chargez une ou plusieurs images
-   - L’application détecte les objets
-   - Si un objet détecté est un déchet, il sera classifié (plastique, verre, papier, métal, carton)
-   - Sinon, l'application indiquera que ce n'est pas un déchet
-
-Fonctionnalités
----------------
-
-- Détection intelligente de déchets sur images et vidéos
-- Classification automatique en 5 types
-- Interface web Streamlit intégrée à Google Colab via LocalTunnel
-- Aucune installation locale requise
-
-Remarques importantes
----------------------
-
-- La session Google Colab doit rester active pendant toute l’utilisation
-- Si l'URL LocalTunnel expire, relancez la cellule correspondante
-- L'utilisation du GPU est fortement recommandée
+* Vérifiez que la session Colab est active
+* Régénérez le lien LocalTunnel si nécessaire
+* Vérifiez les chemins vers les modèles dans Google Drive
