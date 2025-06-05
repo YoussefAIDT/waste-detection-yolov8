@@ -36,3 +36,22 @@ master_doc = 'index'
 
 # Configuration des sources
 source_suffix = '.rst'
+# Fichiers statiques
+html_static_path = ['_static']
+
+# CSS personnalisé
+html_css_files = [
+    'custom.css',
+]
+
+# Options du thème améliorées
+html_theme_options = {
+    'display_version': True,
+    'prev_next_buttons_location': 'bottom',
+    'style_external_links': False,
+    'collapse_navigation': False,
+    'sticky_navigation': True,
+    'navigation_depth': 4,
+    'includehidden': True,
+    'titles_only': False
+}
