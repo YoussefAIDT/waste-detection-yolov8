@@ -53,9 +53,3 @@ html_context = {
     "github_version": "main",
     "conf_py_path": "/docs/",
 }
-html_theme = 'furo'
-html_theme_options = {
-    "source_repository": "https://github.com/votre-username/smart-waste-detection/",
-    "source_branch": "main",
-    "source_directory": "docs/",
-}
