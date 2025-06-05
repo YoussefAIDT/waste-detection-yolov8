@@ -1,106 +1,75 @@
-Guide d'installation et d'utilisation
-=====================================
+# ♻️ Détection intelligente de déchets avec YOLOv8
 
-Ce guide explique comment exécuter le projet de détection de déchets avec YOLOv8 dans Google Colab, tester des images ou vidéos, et accéder à l'interface Web Streamlit.
+Ce projet permet de détecter automatiquement différents types de **déchets** dans des **images** ou **vidéos** à l'aide de modèles **YOLOv8 pré-entraînés**, combinant détection intelligente et classification.
 
-Étape 1 : Ouvrir le projet dans Google Colab
---------------------------------------------
+---
 
-1. Accédez au fichier ``yolov8_waste_detect.ipynb`` dans le dépôt GitHub.
-2. Cliquez sur le bouton ci-dessous pour ouvrir le notebook dans Colab :
+## 📁 Structure du projet
 
-   .. raw:: html
+Le projet comprend **trois notebooks principaux** :
+- `Smart_waste_detection.ipynb` : modèle qui détecte si un objet est un **déchet ou non**
+- `yolov8_waste_detect.ipynb` : modèle de **classification** des types de déchets
+- `Application_de_computer_vision.ipynb` : application complète combinant détection + classification, avec **interface Streamlit**
 
-      <a href="https://colab.research.google.com/drive/1Qcwk9iofV9mklVqdsZgsP7Sr2bV9mLPa" target="_blank">
-          <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" style="margin-top: 10px;">
-      </a>
+---
 
-3. Vous pouvez également télécharger le fichier ``yolov8_waste_detect.ipynb``.
-4. Rendez-vous sur https://colab.research.google.com/
-5. Cliquez sur **Fichier > Importer un notebook**
-6. Sélectionnez le fichier téléchargé.
+## ⚙️ Guide complet d'installation et d'utilisation (Google Colab + Streamlit)
 
-Étape 2 : Installation des bibliothèques nécessaires
------------------------------------------------------
+### 1. **Ouvrir le projet sur Google Colab**
+Accédez au dossier `Models`, puis ouvrez le fichier `Application_de_computer_vision.ipynb`. Cliquez sur **"Open in Colab"**.
 
-Exécutez les cellules d'installation dans le notebook pour installer toutes les dépendances :
+### 2. **Télécharger et importer les modèles pré-entraînés**
+Récupérez les deux modèles depuis le dossier `ModelsSauvegarde` :
+- `yolov8_best.pt` → classification du type de déchet
+- `yolov8_best_smartdetection.pt` → détection déchet ou non
 
-.. code-block:: bash
+Placez-les dans votre Google Drive. Assurez-vous d'utiliser les bons chemins dans le notebook :
+```python
+model_detect = "/content/drive/MyDrive/yolov8_best_smartdetection.pt"
+model_classify = "/content/drive/MyDrive/yolov8_best.pt"
+```
 
-   pip install ultralytics opencv-python matplotlib streamlit localtunnel
+**✅ Astuce :** Activez l'exécution GPU dans Colab pour de meilleures performances.
 
-Étape 3 : Téléchargement des données
--------------------------------------
+### 3. **Installer les dépendances**
+Toujours dans le notebook `Application_de_computer_vision.ipynb`, exécutez les premières cellules pour :
+- Monter Google Drive
+- Installer les bibliothèques nécessaires (ultralytics, streamlit, etc.)
+- Générer le fichier `app.py` avec le code de l'application
 
-Les instructions pour télécharger les données du projet (via Roboflow ou un autre lien) sont disponibles directement dans le notebook.
+### 4. **Lancer l'application web Streamlit via LocalTunnel**
+Exécutez cette cellule pour récupérer votre adresse IP publique :
+```bash
+!wget -q -O - ipv4.icanhazip.com
+```
+Copiez l'adresse IP affichée (ex : `34.16.147.252`)
 
-Étape 4 : Intégration du modèle pré-entraîné
---------------------------------------------
+Puis lancez Streamlit avec tunnel public :
+```bash
+!streamlit run app.py & npx localtunnel --port 8501
+```
+Une URL comme `https://loose-spoons-report.loca.lt` s'affichera. Cliquez dessus pour accéder à l'interface web.
 
-1. Téléchargez le modèle ``yolov8_best.pt`` depuis le dépôt GitHub ou un lien fourni.
-2. Connectez votre Google Drive à Colab.
-3. Placez le fichier dans ce chemin exact :
+### 5. **Utilisation de l'interface web**
+Une fois dans l'application :
+- Chargez une ou plusieurs images
+- L'application détectera les objets
+- Si l'objet détecté est un déchet, il sera classifié par type (plastique, verre, papier, métal, carton)
+- Sinon, le système indique que ce n'est pas un déchet
 
-::
+---
 
-   /content/drive/MyDrive/yolov8_best.pt
+## ✅ Fonctionnalités
 
-Étape 5 : Chargement du modèle
--------------------------------
+- Détection intelligente de déchets sur images et vidéos
+- Classification automatique en 5 types de déchets
+- Interface web conviviale avec Streamlit intégrée à Google Colab via LocalTunnel
+- Aucune installation locale nécessaire
 
-Dans le notebook, exécutez la cellule suivante :
+---
 
-.. code-block:: python
+## ⚠️ Remarques importantes
 
-   from ultralytics import YOLO
-
-   # Charger le modèle entraîné
-   model = YOLO("/content/drive/MyDrive/yolov8_best.pt")
-
-Étape 6 : Test du modèle
--------------------------
-
-1. Téléchargez une image contenant des déchets, nommez-la ``image_test.jpg``.
-2. Chargez-la dans Colab.
-3. Utilisez la cellule de prédiction pour obtenir les résultats.
-
-Il est aussi possible d’analyser des **vidéos** en suivant les instructions du notebook.
-
-Étape 7 : Lancement de l’application Streamlit
------------------------------------------------
-
-1. Assurez-vous que les bibliothèques Streamlit et LocalTunnel sont installées.
-2. Exécutez toutes les cellules du notebook.
-3. Lancez la commande suivante :
-
-.. code-block:: bash
-
-   !streamlit run app.py & npx localtunnel --port 8501
-
-4. Une URL d’accès sera générée.
-
-Étape 8 : Accès à l’interface Web
-----------------------------------
-
-1. Exécutez la commande suivante pour obtenir votre adresse IP :
-
-.. code-block:: bash
-
-   !wget -q -O - ipv4.icanhazip.com
-
-2. Copiez l’adresse affichée.
-3. Collez-la dans le champ **Tunnel Password** de la page générée.
-4. Cliquez sur **Click to Submit**.
-5. L’interface Streamlit s’ouvrira dans une nouvelle page.
-
-Fonctionnalités
-===============
-
-- Détection de déchets sur des images (plastique, métal, verre, papier, carton)
-- Analyse de vidéos
-- Interface Web dynamique via Streamlit
-
-Remarques
-=========
-
-Assurez-vous que la session Colab reste **active et non expirée** pendant l’utilisation de l’application Web.
+- La session Colab doit rester active pendant toute l'utilisation
+- Le lien généré par LocalTunnel peut expirer : il suffit de réexécuter la cellule pour obtenir un nouveau lien
+- L'utilisation du GPU est fortement conseillée pour une meilleure rapidité de traitement
