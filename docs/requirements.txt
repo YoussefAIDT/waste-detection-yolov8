@@ -2,3 +2,4 @@ sphinx
 recommonmark
 ultralytics
 streamlit
+furo
