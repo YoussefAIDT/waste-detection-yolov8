@@ -1,78 +1,75 @@
-# Détection de déchets avec YOLOv8
+# ♻️ Détection intelligente de déchets avec YOLOv8
 
-Ce projet permet de détecter différents types de déchets à partir d'images et de vidéos en utilisant un modèle YOLOv8 pré-entraîné.
+Ce projet permet de détecter automatiquement différents types de **déchets** dans des **images** ou **vidéos** à l'aide de modèles **YOLOv8 pré-entraînés**, combinant détection intelligente et classification.
 
-## Guide d'installation et d'utilisation
+---
 
-### Étape 1 : Ouvrir le projet dans Google Colab
-il exste Trois imporatants nootbook "Smart_waste_detection.ipynb","yolov8_waste_detect.ipynb" et "Application_de_comptur_vision.ipynb"
-Smart_waste_detection est pour le modéle qui detecte si un objet est un dechet ou non,yolov8_waste_detect et le modéle de classification et Application_de_comptur_vision et pour l'application tu peut trouver les trous nootbook dans le document Models.
-1. Entre `yolov8_waste_detect.ipynb`
-2. cliquer sur "Open in colab"
-3. ou bien Télecharger `yolov8_waste_detect.ipynb`
-4. Ouvrez Google Colab (https://colab.research.google.com/)
-5. Importez le notebook en cliquant sur "Fichier" > "Importer un notebook"
-6. Sélectionnez le fichier `yolov8_waste_detect.ipynb`
-### Étape 2 : Installation des bibliothèques nécessaires
+## 📁 Structure du projet
 
-Exécutez les cellules d'installation dans le notebook pour installer toutes les dépendances requises.
+Le projet comprend **trois notebooks principaux** :
+- `Smart_waste_detection.ipynb` : modèle qui détecte si un objet est un **déchet ou non**
+- `yolov8_waste_detect.ipynb` : modèle de **classification** des types de déchets
+- `Application_de_computer_vision.ipynb` : application complète combinant détection + classification, avec **interface Streamlit**
 
-### Étape 3 : Téléchargement des données du projet
+---
 
-Suivez les instructions dans le notebook pour télécharger les données nécessaires.
+## ⚙️ Guide complet d'installation et d'utilisation (Google Colab + Streamlit)
 
-### Étape 4 : Intégration du modèle pré-entraîné
+### 1. **Ouvrir le projet sur Google Colab**
+Accédez au dossier `Models`, puis ouvrez le fichier `Application_de_computer_vision.ipynb`. Cliquez sur **"Open in Colab"**.
 
-1. Accédez à GitHub pour télécharger le fichier de modèle `yolov8_best.pt`
-2. Connectez votre Google Drive à Colab
-3. Placez le modèle dans votre Google Drive en respectant le chemin suivant :
-   `/content/drive/MyDrive/yolov8_best.pt`
+### 2. **Télécharger et importer les modèles pré-entraînés**
+Récupérez les deux modèles depuis le dossier `ModelsSauvegarde` :
+- `yolov8_best.pt` → classification du type de déchet
+- `yolov8_best_smartdetection.pt` → détection déchet ou non
 
-### Étape 5 : Chargement du modèle
-
-Exécutez la cellule suivante dans le notebook :
-
+Placez-les dans votre Google Drive. Assurez-vous d'utiliser les bons chemins dans le notebook :
 ```python
-from ultralytics import YOLO
-# Charger le modèle entraîné
-model = YOLO("/content/drive/MyDrive/yolov8_best.pt")
+model_detect = "/content/drive/MyDrive/yolov8_best_smartdetection.pt"
+model_classify = "/content/drive/MyDrive/yolov8_best.pt"
 ```
 
-### Étape 6 : Test du modèle
+**✅ Astuce :** Activez l'exécution GPU dans Colab pour de meilleures performances.
 
-1. Téléchargez une image de test contenant des déchets et nommez-la `image_test.jpg`
-2. Exécutez la cellule de prédiction pour analyser l'image
-3. Visualisez les résultats de détection
+### 3. **Installer les dépendances**
+Toujours dans le notebook `Application_de_computer_vision.ipynb`, exécutez les premières cellules pour :
+- Monter Google Drive
+- Installer les bibliothèques nécessaires (ultralytics, streamlit, etc.)
+- Générer le fichier `app.py` avec le code de l'application
 
-Vous pouvez également tester le modèle sur des vidéos en suivant les instructions du notebook.
+### 4. **Lancer l'application web Streamlit via LocalTunnel**
+Exécutez cette cellule pour récupérer votre adresse IP publique :
+```bash
+!wget -q -O - ipv4.icanhazip.com
+```
+Copiez l'adresse IP affichée (ex : `34.16.147.252`)
 
-### Étape 7 : Lancement de l'application Streamlit
+Puis lancez Streamlit avec tunnel public :
+```bash
+!streamlit run app.py & npx localtunnel --port 8501
+```
+Une URL comme `https://loose-spoons-report.loca.lt` s'affichera. Cliquez dessus pour accéder à l'interface web.
 
-1. Installez les bibliothèques requises pour Streamlit
-2. Exécutez toutes les cellules restantes du notebook
-3. Dans la cellule finale, exécutez :
-   ```
-   !streamlit run app.py & npx localtunnel --port 8501
-   ```
-4. Une URL sera générée
+### 5. **Utilisation de l'interface web**
+Une fois dans l'application :
+- Chargez une ou plusieurs images
+- L'application détectera les objets
+- Si l'objet détecté est un déchet, il sera classifié par type (plastique, verre, papier, métal, carton)
+- Sinon, le système indique que ce n'est pas un déchet
 
-### Étape 8 : Accès à l'interface web
+---
 
-1. Exécutez la commande suivante pour obtenir votre adresse IP :
-   ```
-   !wget -q -O - ipv4.icanhazip.com
-   ```
-2. Copiez l'adresse IP affichée
-3. Dans la page qui s'ouvre après avoir cliqué sur l'URL générée, collez l'adresse IP dans le champ "Tunnel Password"
-4. Cliquez sur "Click to submit"
-5. Vous accéderez à l'interface web de l'application de détection de déchets
+## ✅ Fonctionnalités
 
-## Fonctionnalités
+- Détection intelligente de déchets sur images et vidéos
+- Classification automatique en 5 types de déchets
+- Interface web conviviale avec Streamlit intégrée à Google Colab via LocalTunnel
+- Aucune installation locale nécessaire
 
-- Détection de différents types de déchets sur des images
-- Analyse de vidéos pour la détection de déchets
-- Interface utilisateur web intuitive via Streamlit
+---
 
-## Remarques
+## ⚠️ Remarques importantes
 
-Assurez-vous que votre session Colab reste active pendant l'utilisation de l'application Streamlit.
+- La session Colab doit rester active pendant toute l'utilisation
+- Le lien généré par LocalTunnel peut expirer : il suffit de réexécuter la cellule pour obtenir un nouveau lien
+- L'utilisation du GPU est fortement conseillée pour une meilleure rapidité de traitement
