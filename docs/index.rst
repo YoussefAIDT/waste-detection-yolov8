@@ -1,17 +1,14 @@
-Bienvenue dans la documentation de Waste Detection YOLOv8 !
-============================================================
+Bienvenue dans la documentation de Smart Waste Detection
+========================================================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Sommaire
+   :caption: Contenu
 
-   usage
-   streamlit
    guide_utilisation
 
 Indices et tables
-==================
-
+=================
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
