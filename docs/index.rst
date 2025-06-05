@@ -1,54 +1,39 @@
-Smart Waste Detection avec YOLOv8
-==================================
+Smart Waste Detection
+=====================
 
-🎯 **Application intelligente de détection et classification de déchets**
+Documentation du projet de détection intelligente de déchets avec YOLOv8.
 
-Cette documentation présente un système complet de détection automatique des déchets 
-utilisant les modèles YOLOv8, avec interface Streamlit intégrée.
+Description
+-----------
 
-.. image:: https://img.shields.io/badge/Python-3.9+-blue.svg
-   :target: https://python.org
+Ce projet permet de détecter automatiquement différents types de déchets dans des images ou vidéos à l'aide de modèles YOLOv8 pré-entraînés.
 
-.. image:: https://img.shields.io/badge/YOLOv8-Ultralytics-orange.svg
-   :target: https://ultralytics.com
+Fonctionnalités principales
+---------------------------
 
-🚀 Démarrage rapide
-------------------
+* Détection si un objet est un déchet ou non
+* Classification en 5 types : plastique, verre, métal, papier, carton  
+* Interface utilisateur Streamlit
+* Exécution sur Google Colab avec LocalTunnel
 
-1. Ouvrez ``Application_de_computer_vision.ipynb`` dans Google Colab
-2. Téléchargez les modèles pré-entraînés
-3. Lancez l'interface Streamlit via LocalTunnel
-
-📚 Table des matières
---------------------
+Guide d'utilisation
+-------------------
 
 .. toctree::
    :maxdepth: 2
-   :caption: Guide utilisateur
-
+   
    guide_utilisation
-   installation
-   interface_streamlit
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Technique
+Installation
+------------
 
-   modeles_yolov8
-   architecture
-   api_reference
+1. Ouvrez le notebook dans Google Colab
+2. Téléchargez les modèles pré-entraînés
+3. Exécutez les cellules du notebook
+4. Accédez à l'interface Streamlit via le lien généré
 
-.. toctree::
-   :maxdepth: 1
-   :caption: Ressources
-
-   faq
-   troubleshooting
-   changelog
-
-Indices et tables
-=================
+Index et recherche
+==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
