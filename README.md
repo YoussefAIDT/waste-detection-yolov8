@@ -5,7 +5,8 @@ Ce projet permet de détecter différents types de déchets à partir d'images e
 ## Guide d'installation et d'utilisation
 
 ### Étape 1 : Ouvrir le projet dans Google Colab
-
+il exste Trois imporatants nootbook "Smart_waste_detection.ipynb","yolov8_waste_detect.ipynb" et "Application_de_comptur_vision.ipynb"
+Smart_waste_detection est pour le modéle qui detecte si un objet est un dechet ou non,yolov8_waste_detect et le modéle de classification et Application_de_comptur_vision et pour l'application tu peut trouver les trous nootbook dans le document Models.
 1. Entre `yolov8_waste_detect.ipynb`
 2. cliquer sur "Open in colab"
 3. ou bien Télecharger `yolov8_waste_detect.ipynb`
