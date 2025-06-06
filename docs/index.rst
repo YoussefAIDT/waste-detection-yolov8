@@ -8,8 +8,6 @@ Smart Waste Detection 🚀
    guid_utulisation
    explication_code
 
-Bienvenue dans la documentation du projet Smart Waste Detection.
-
 .. raw:: html
 
    <div class="feature-grid">
