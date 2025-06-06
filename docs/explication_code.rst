@@ -1,135 +1,77 @@
+Description des fichiers sources
+================================
 
-Explication du code source
-==========================
+1. Smart_waste_detection.ipynb – Détection Déchet / Non-Déchet
+--------------------------------------------------------------
 
-Cette section détaille le fonctionnement du code Python utilisé pour entraîner et utiliser le modèle Smart Waste Detection basé sur YOLOv8.
+Ce notebook utilise un modèle YOLOv8 personnalisé entraîné pour détecter si un objet est un **déchet ou non**.
 
-Installation des dépendances
-----------------------------
+**Étapes principales du code** :
 
-Les bibliothèques suivantes sont installées via `pip` :
+- Installation des bibliothèques nécessaires :
+  .. code-block:: python
 
-.. code-block:: python
+     !pip install ultralytics roboflow
 
-   !pip install ultralytics
-   !pip install roboflow
+- Connexion à Roboflow pour charger le dataset annoté :
+  .. code-block:: python
 
-- `ultralytics` : bibliothèque officielle pour utiliser YOLOv8.
-- `roboflow` : utilisée pour importer facilement un dataset annoté depuis la plateforme Roboflow.
+     from roboflow import Roboflow
+     rf = Roboflow(api_key="...")
+     project = rf.workspace("...").project("waste-detection")
+     dataset = project.version(1).download("yolov8")
 
-Chargement du dataset
----------------------
+- Montage de Google Drive pour sauvegarder les modèles :
+  .. code-block:: python
 
-Le dataset annoté est téléchargé depuis Roboflow :
+     from google.colab import drive
+     drive.mount('/content/drive')
 
-.. code-block:: python
+- Entraînement d’un modèle YOLOv8 :
+  .. code-block:: python
 
-   from roboflow import Roboflow
-   rf = Roboflow(api_key="VOTRE_CLE_API")
-   project = rf.workspace("nom_workspace").project("nom_du_projet")
-   version = project.version(1)
-   dataset = version.download("yolov8")
+     !yolo task=detect mode=train model=yolov8n.pt data=data.yaml epochs=50 imgsz=640
 
-Le jeu de données est directement structuré au format YOLOv8 (fichiers `.yaml`, `images/`, `labels/`).
+Ce modèle est sauvegardé sous le nom : `yolov8_best_smartdetection.pt`. Il détecte **la présence d’un déchet**, sans se soucier du type.
 
-Montage de Google Drive
-------------------------
+---
 
-Pour stocker les modèles et y accéder depuis Colab :
+2. yolov8_waste_detect.ipynb – Classification du type de déchet
+----------------------------------------------------------------
 
-.. code-block:: python
+Ce second notebook utilise un autre modèle YOLOv8, **entraîné uniquement sur les objets identifiés comme déchets**. Il permet de déterminer la classe du déchet :
 
-   from google.colab import drive
-   drive.mount('/content/drive')
+- Plastique
+- Verre
+- Métal
+- Papier
+- Carton
 
-Cela permet de sauvegarder le modèle entraîné dans Google Drive et d'y accéder ensuite depuis une autre session.
+**Étapes clés** :
 
-Entraînement du modèle
-----------------------
+- Chargement du dataset annoté via Roboflow
+- Préparation du fichier `data.yaml` (classes et chemins)
+- Entraînement d’un modèle YOLOv8 pour la classification multi-classes
+  .. code-block:: python
 
-On utilise la commande YOLOv8 suivante pour l'entraînement :
+     !yolo task=detect mode=train model=yolov8n.pt data=data.yaml epochs=60 imgsz=640
 
-.. code-block:: python
+Ce modèle est sauvegardé comme `yolov8_best.pt` et il est utilisé **seulement après qu’un objet ait été détecté comme déchet.**
 
-   !yolo task=detect mode=train model=yolov8n.pt data=data.yaml epochs=50 imgsz=640
+---
 
-- `task=detect` : détection d'objet.
-- `model=yolov8n.pt` : on utilise ici la version "nano" du modèle YOLOv8 pour plus de rapidité.
-- `data=data.yaml` : fichier YAML généré automatiquement par Roboflow contenant les chemins vers les images et les classes.
-- `epochs=50` : nombre d'itérations d'entraînement.
-- `imgsz=640` : taille des images redimensionnées.
+Utilisation combinée des deux modèles
+=====================================
 
-Évaluation du modèle
---------------------
-
-Une fois l'entraînement terminé, YOLO affiche les performances du modèle (mAP, précision, rappel).
-
-.. code-block:: python
-
-   !yolo task=detect mode=val model=/content/runs/detect/train/weights/best.pt data=data.yaml
-
-Détection sur des images personnalisées
----------------------------------------
-
-Le modèle est ensuite utilisé pour prédire des déchets sur des images :
+L'application finale combine les deux modèles :
 
 .. code-block:: python
 
-   !yolo task=detect mode=predict model=/content/drive/MyDrive/yolov8_best.pt source="image.jpg"
+   model_detect = YOLO("/content/drive/MyDrive/yolov8_best_smartdetection.pt")
+   model_classify = YOLO("/content/drive/MyDrive/yolov8_best.pt")
 
-Cela génère une image avec les boîtes englobantes autour des objets détectés.
+1. **Détection globale** : `model_detect` localise les objets et indique s’ils sont des déchets.
+2. **Classification ciblée** : `model_classify` détermine le type exact de chaque déchet détecté.
 
-
-
-Modèle Smart Waste Detection
-============================
-
-Le modèle **Smart Waste Detection** est basé sur **YOLOv8**, un algorithme de détection d’objets en temps réel de dernière génération. Ce modèle a été entraîné spécifiquement pour reconnaître cinq types de déchets dans des environnements variés (sol, rue, sol de cantine, etc.).
-
-Objectif
---------
-
-L’objectif est double :
-
-1. **Détecter automatiquement** les objets qui sont des déchets dans une image.
-2. **Classer** ces déchets selon leur type : plastique, métal, papier, carton, ou verre.
-
-Architecture utilisée
----------------------
-
-Le modèle est basé sur **YOLOv8n** (version "nano"), pour optimiser la vitesse et l’utilisation des ressources :
-
-- Architecture : CNN avec détection par ancrage.
-- Entrée : Images de taille redimensionnée (640x640).
-- Sortie : Boîtes englobantes avec une classe et un score de confiance.
-
-Transfert learning
-------------------
-
-Le projet utilise le **transfert learning**. Cela signifie que :
-
-- Le modèle YOLOv8 pré-entraîné sur le dataset COCO a été réutilisé.
-- Une fine-tuning a été appliquée à partir de ce modèle sur un dataset annoté manuellement via **Roboflow**.
-
-Classes détectées
------------------
-
-Le modèle reconnaît les classes suivantes :
-
-.. csv-table:: Classes détectées
-   :header: "Classe", "ID", "Description"
-   :widths: 20, 10, 60
-
-   "Plastique", 0, "Déchets plastiques (bouteilles, sacs, etc.)"
-   "Verre", 1, "Bouteilles ou fragments de verre"
-   "Métal", 2, "Canettes, boîtes de conserve, etc."
-   "Papier", 3, "Feuilles, journaux, papiers froissés"
-   "Carton", 4, "Emballages, boîtes"
-
-Améliorations prévues
----------------------
-
-- Ajout de la segmentation pour mieux délimiter les formes des déchets.
-- Détection contextuelle : différencier un objet usagé (déchet) d’un objet propre posé (non-déchet).
-- Intégration dans un pipeline complet avec caméra en temps réel.
+Cette stratégie séquentielle permet de filtrer les objets non pertinents et de garantir une classification fiable.
 
