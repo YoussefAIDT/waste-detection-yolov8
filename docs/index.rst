@@ -27,3 +27,11 @@ Types de déchets supportés :
    <span class="waste-type">🥫 Métal</span>
    <span class="waste-type">📄 Papier</span>
    <span class="waste-type">📦 Carton</span>
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Sommaire
+
+   guid_utulisation
+   explication_code
