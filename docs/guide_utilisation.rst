@@ -1,4 +1,4 @@
-Détection intelligente de déchets avec YOLOv8
+Guide_utilisation
 =============================================
 
 Ce projet permet de détecter automatiquement différents types de **déchets** dans des **images** ou **vidéos** à l'aide de modèles **YOLOv8 pré-entraînés**, combinant détection intelligente et classification.
