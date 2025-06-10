@@ -17,62 +17,66 @@ Guide complet d'installation et d'utilisation (Google Colab + Streamlit)
 
 1. **Ouvrir le projet sur Google Colab**
 
-Accédez au dossier ``Models``, puis ouvrez le fichier ``Application_de_computer_vision.ipynb``. Cliquez sur **"Open in Colab"**.
+   Accédez au dossier ``Models``, puis ouvrez le fichier ``Application_de_computer_vision.ipynb``. Cliquez sur **"Open in Colab"**.
 
 2. **Télécharger et importer les modèles pré-entraînés**
 
-Récupérez les deux modèles depuis le dossier ``ModelsSauvegarde`` :
+   Récupérez les deux modèles depuis le dossier ``ModelsSauvegarde`` :
 
-- ``yolov8_best.pt`` → classification du type de déchet
-- ``yolov8_best_smartdetection.pt`` → détection déchet ou non
+   - ``yolov8_best.pt`` → classification du type de déchet
+   - ``yolov8_best_smartdetection.pt`` → détection déchet ou non
 
-Placez-les dans votre Google Drive. Exemple de chemins à utiliser :
+   Placez-les dans votre Google Drive. Exemple de chemins à utiliser :
 
-.. code-block:: python
+   .. code-block:: python
 
-   model_detect = "/content/drive/MyDrive/yolov8_best_smartdetection.pt"
-   model_classify = "/content/drive/MyDrive/yolov8_best.pt"
+      model_detect = "/content/drive/MyDrive/yolov8_best_smartdetection.pt"
+      model_classify = "/content/drive/MyDrive/yolov8_best.pt"
 
-**Astuce :** Activez l'exécution GPU dans Colab pour de meilleures performances.
+   **Astuce :** Activez l'exécution GPU dans Colab pour de meilleures performances.
 
 3. **Installer les dépendances**
 
-Dans le notebook ``Application_de_computer_vision.ipynb``, exécutez les premières cellules pour :
+   Dans le notebook ``Application_de_computer_vision.ipynb``, exécutez les premières cellules pour :
 
-- Monter Google Drive
-- Installer les bibliothèques nécessaires (ultralytics, streamlit…)
-- Générer le fichier ``app.py``
+   - Monter Google Drive
+   - Installer les bibliothèques nécessaires (ultralytics, streamlit…)
+   - Générer le fichier ``app.py``
 
 4. **Lancer l'application web Streamlit via LocalTunnel**
 
-.. code-block:: bash
+   Exécutez cette commande pour obtenir votre adresse IP :
 
-   !wget -q -O - ipv4.icanhazip.com
+   .. code-block:: bash
 
-Copiez l'adresse IP affichée, puis :
+      !wget -q -O - ipv4.icanhazip.com
 
-.. code-block:: bash
+   Copiez l'adresse IP affichée, puis lancez l'application avec :
 
-   !streamlit run app.py & npx localtunnel --port 8501
+   .. code-block:: bash
 
-Une URL comme ``https://loose-spoons-report.loca.lt`` apparaîtra. Cliquez dessus pour accéder à l'application.
+      !streamlit run app.py & npx localtunnel --port 8501
+
+   Une URL comme ``https://loose-spoons-report.loca.lt`` apparaîtra. Cliquez dessus pour accéder à l'application.
 
 5. **Utilisation de l'interface web**
 
-- Chargez une image
-- Le système détecte et classe les déchets automatiquement
+   - Chargez une image
+   - Le système détecte les objets
+   - Si l’objet est un déchet, il est classé par type
+   - Sinon, le système indique que ce n’est pas un déchet
 
 Fonctionnalités
 ---------------
 
-- Détection intelligente de déchets (images/vidéos)
-- Classification en 5 types : plastique, verre, métal, papier, carton
-- Interface web Streamlit + Google Colab
-- Sans installation locale
+- Détection intelligente de déchets (images et vidéos)
+- Classification automatique en 5 types : plastique, verre, métal, papier, carton
+- Interface web Streamlit intégrée dans Google Colab (via LocalTunnel)
+- Aucune installation locale nécessaire
 
 Remarques importantes
 ---------------------
 
-- Colab doit rester actif
-- Lien LocalTunnel peut expirer (rechargez)
-- Utilisez le **GPU** pour de meilleures performances
+- La session Colab doit rester active pendant toute l'utilisation
+- Le lien généré par LocalTunnel peut expirer : il suffit de réexécuter la commande
+- L'utilisation du GPU est fortement conseillée pour de meilleures performances
