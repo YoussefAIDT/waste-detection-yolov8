@@ -5,7 +5,7 @@ Smart Waste Detection 🚀
    :maxdepth: 2
    :caption: Sommaire
 
-   guid_utulisation
+   guid_utilisation
    explication_code
 
 .. raw:: html
