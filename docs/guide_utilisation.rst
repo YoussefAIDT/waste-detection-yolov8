@@ -27,6 +27,7 @@ Guide complet d'installation et d'utilisation (Google Colab + Streamlit)
 </a>
 
 
+
 2. **Télécharger et importer les modèles pré-entraînés**
 
    Récupérez les deux modèles depuis le dossier ``ModelsSauvegarde`` :
