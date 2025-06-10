@@ -21,7 +21,7 @@ Guide complet d'installation et d'utilisation (Google Colab + Streamlit)
 
    .. raw:: html
 
-<a href="https://colab.research.google.com/github/zakariazemmahi/waste-detection-yolov8/blob/main/Models/Application_de_computer_vision.ipynb" target="_blank" rel="noopener noreferrer">
+<a href="https://colab.research.google.com/github/zakariazemmahi/waste-detection-yolov8/blob/main/Models/Application_de_comptur_vision.ipynb#scrollTo=ZgGV1in-5PaZ">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Ouvrir dans Colab" style="height: 40px;"/>
 </a>
 
