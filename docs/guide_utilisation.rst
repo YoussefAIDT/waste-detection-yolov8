@@ -17,7 +17,13 @@ Guide complet d'installation et d'utilisation (Google Colab + Streamlit)
 
 1. **Ouvrir le projet sur Google Colab**
 
-   Accédez au dossier ``Models``, puis ouvrez le fichier ``Application_de_computer_vision.ipynb``. Cliquez sur **"Open in Colab"**.
+   Accédez au dossier ``Models``, puis ouvrez le fichier ``Application_de_computer_vision.ipynb``.
+
+   .. raw:: html
+
+      <a href="https://colab.research.google.com/github/zakariazemmahi/waste-detection-yolov8/blob/main/Models/Application_de_computer_vision.ipynb" target="_blank">
+         <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Ouvrir dans Colab"/>
+      </a>
 
 2. **Télécharger et importer les modèles pré-entraînés**
 
