@@ -69,23 +69,23 @@ Une fois qu'un objet est détecté comme **déchet**, il est ensuite classé par
 
 Voici des exemples de chaque classe :
 
-.. image:: ../images/plastique_exemple.jpg
+.. image:: plastique_exemple.png
    :alt: Déchet plastique
    :width: 200px
 
-.. image:: ../images/carton_exemple.jpg
+.. image:: carton_exemple.png
    :alt: Déchet carton
    :width: 200px
 
-.. image:: ../images/papier_exemple.jpg
+.. image:: papier_exemple.png
    :alt: Déchet papier
    :width: 200px
 
-.. image:: ../images/glass_exemple.jpg
+.. image:: glass_exemple.png
    :alt: Déchet verre
    :width: 200px
 
-.. image:: ../images/metal_exemple.jpg
+.. image:: metal_exemple.png
    :alt: Déchet métal
    :width: 200px
 
