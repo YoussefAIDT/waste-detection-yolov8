@@ -15,7 +15,7 @@ Nous avons collecté manuellement des images dans notre école, en utilisant un 
 
    Ci-dessous quelques exemples d'images capturées :
 
-   .. image:: ../images/photo_table_bouteille.jpg
+   .. image:: photo_table_bouteille.jpg.png
       :alt: Bouteille sur une table - non déchet
       :width: 300px
 
@@ -23,7 +23,7 @@ Nous avons collecté manuellement des images dans notre école, en utilisant un 
       :alt: Bouteille dans la main - non déchet
       :width: 300px
 
-   .. image:: ../images/photo_sol_bouteille.jpg
+   .. image:: photo_sol_bouteille.jpg.png
       :alt: Bouteille au sol - déchet
       :width: 300px
 
