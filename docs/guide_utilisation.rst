@@ -47,6 +47,11 @@ Guide complet d'installation et d'utilisation (Google Colab + Streamlit)
       model_classify = "/content/drive/MyDrive/yolov8_best.pt"
 
    **Astuce :** Activez l'exécution GPU dans Colab pour de meilleures performances.
+   .. note::
+
+   ❗ **Intention :** Placer les deux modèles dans un même répertoire afin d'assurer le bon fonctionnement de l'application et l'exécution correcte du code.
+
+
 
 3. **Installer les dépendances**
 
