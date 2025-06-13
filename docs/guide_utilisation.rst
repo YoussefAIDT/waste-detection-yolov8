@@ -39,7 +39,7 @@ Guide complet d'installation et d'utilisation (Google Colab + Streamlit)
    - ``yolov8_best.pt`` → classification du type de déchet
    - ``yolov8_best_smartdetection.pt`` → détection déchet ou non
 
-   Placez-les dans votre Google Drive. Exemple de chemins à utiliser :
+   Placez-les dans votre Google Drive. Dans les chemins suivants :
 
    .. code-block:: python
 
