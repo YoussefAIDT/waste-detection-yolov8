@@ -19,7 +19,7 @@ Nous avons collecté manuellement des images dans notre école, en utilisant un 
       :alt: Bouteille sur une table - non déchet
       :width: 300px
 
-   .. image:: ../images/photo_main_bouteille.jpg
+   .. image:: photo_main_bouteille.jpg.png
       :alt: Bouteille dans la main - non déchet
       :width: 300px
 
