@@ -29,7 +29,7 @@ Nous avons collecté manuellement des images dans notre école, en utilisant un 
 
 Toutes les images ont été **annotées (labelisées)** via **Roboflow**, une plateforme d’étiquetage d'images en ligne. Nous avons ensuite **divisé les images** en trois parties : entraînement, validation et test.
 
-.. image:: ../images/roboflow_capture.png
+.. image:: roboflow_capture.png.png
    :alt: Capture d'écran Roboflow
    :width: 600px
 
