@@ -44,15 +44,15 @@ Ce modèle est entraîné pour distinguer si un objet est **un déchet ou non**,
 - Un **papier dans une poubelle** → *non déchet*
 - Un **papier jeté par terre** → *déchet*
 
-.. image:: ../images/bouteille_table.jpg
+.. image:: photo_table_bouteille.jpg.png
    :alt: Bouteille sur table
    :width: 250px
 
-.. image:: ../images/bouteille_main.jpg
+.. image:: photo_main_bouteille.jpg.png
    :alt: Bouteille dans la main
    :width: 250px
 
-.. image:: ../images/bouteille_sol.jpg
+.. image:: photo_sol_bouteille.jpg.png
    :alt: Bouteille jetée au sol
    :width: 250px
 
