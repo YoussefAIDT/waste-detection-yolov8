@@ -6,6 +6,7 @@ Smart Waste Detection 🚀
    :caption: Sommaire
 
    guide_utilisation
+   explication_projet
    explication_code
 
 .. raw:: html
