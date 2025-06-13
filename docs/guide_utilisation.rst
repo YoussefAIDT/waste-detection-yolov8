@@ -75,7 +75,8 @@ Guide complet d'installation et d'utilisation (Google Colab + Streamlit)
 
       !streamlit run app.py & npx localtunnel --port 8501
 
-   Une URL comme ``https://loose-spoons-report.loca.lt`` apparaîtra. Cliquez dessus pour accéder à l'application.
+   Une URL comme your url is: https://floppy-tools-retire.loca.lt apparaîtra. Cliquez dessus pour accéder à l'application.
+   Coller l'adresse IP Dans Tunnel Password et aprés cliquer sur "Click to Submit"
 
 5. **Utilisation de l'interface web**
 
