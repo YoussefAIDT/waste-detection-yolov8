@@ -184,35 +184,12 @@ de détection et classification robuste et efficace.
 - Libération automatique des tenseurs GPU après chaque prédiction
 - Traitement par lots pour les images multiples
 
-**Optimisations de performance :**
 
-.. code-block:: python
-
-   # Configuration optimisée pour la production
-   model_detect.conf = 0.5    # Seuil de confiance pour la détection
-   model_classify.conf = 0.7  # Seuil plus élevé pour la classification
-   
-   # Utilisation du GPU si disponible
-   device = 'cuda' if torch.cuda.is_available() else 'cpu'
-   model_detect.to(device)
-   model_classify.to(device)
-
-**Gestion des erreurs :**
-
-.. code-block:: python
-
-   def safe_process_image(image_path):
-       """Version sécurisée du traitement d'image avec gestion d'erreurs"""
-       try:
-           return process_image(image_path)
-       except Exception as e:
-           print(f"Erreur lors du traitement de {image_path}: {str(e)}")
-           return []
 
 **Formats supportés :**
 
-- **Images** : JPG, PNG, BMP, TIFF
-- **Entrée** : Chemin de fichier, URL, tableau NumPy, tensor PyTorch
+- **Images** : JPG, PNG,JPEG
+- **Entrée** : Images
 - **Résolution** : Optimisé pour 640x640, supporte jusqu'à 1920x1080
 
 ------------------------------------------------------------
