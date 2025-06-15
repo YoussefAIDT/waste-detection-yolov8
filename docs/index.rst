@@ -1,30 +1,37 @@
-# Smart Waste Detection 🚀
+Smart Waste Detection 🚀
+========================
 
-## À propos du projet
+À propos du projet
+------------------
 
 Le **Smart Waste Detection** est un système intelligent de détection et classification automatique des déchets utilisant l'intelligence artificielle. Ce projet révolutionnaire permet d'identifier automatiquement si un objet constitue un déchet et de le classer dans la catégorie de recyclage appropriée, contribuant ainsi à une gestion plus efficace des déchets et à la protection de l'environnement.
 
 Grâce à des techniques avancées d'apprentissage automatique et de vision par ordinateur, notre système analyse les images d'objets en temps réel et fournit une classification précise pour optimiser le processus de tri des déchets.
 
----
+Équipe de développement
+-----------------------
 
-## 👥 Équipe de développement
+Étudiants
+~~~~~~~~~
 
-### Étudiants
-- **ES-SAAIDI Youssef** - [GitHub](https://github.com/es-saaidi-youssef)
-- **ZEMMAHI Zakariae** - [GitHub](https://github.com/zemmahi-zakariae)  
-- **HAJJI Mohamed** - [GitHub](https://github.com/hajji-mohamed)
+* **ES-SAAIDI Youssef** - `GitHub <https://github.com/YoussefAIDT>`_
+* **ZEMMAHI Zakariae** - `GitHub <https://github.com/zakariazemmahi>`_  
+* **HAJJI Mohamed** - `GitHub <https://github.com/mohamedhajji11>`_
 
-### Encadrant
-- **MASROUR Tawfik** - Professeur encadrant
+Encadrant
+~~~~~~~~~
 
-### Institution
-**École Nationale Supérieure d'Arts et Métiers (ENSAM) - Meknès, Maroc**  
+* **MASROUR Tawfik** - `GitHub <https://github.com/MasrourTawfik>`_
+
+Institution
+~~~~~~~~~~~
+
+**École Nationale Supérieure d'Arts et Métiers (ENSAM) - Meknès, Maroc**
+
 **Filière :** Génie Intelligence Artificielle et Technologies de Data - Systèmes Industriels
 
----
-
-## 🎯 Fonctionnalités principales
+Fonctionnalités principales
+---------------------------
 
 .. raw:: html
 
@@ -43,51 +50,77 @@ Grâce à des techniques avancées d'apprentissage automatique et de vision par 
      </div>
    </div>
 
-## 🗂️ Types de déchets supportés
+Types de déchets supportés
+--------------------------
 
 Notre système reconnaît et classe les déchets selon 5 catégories principales :
 
 .. raw:: html
 
-   <span class="waste-type">🥤 **Plastique**</span> - Bouteilles, emballages, sacs plastiques, contenants alimentaires
-   
-   <span class="waste-type">🍷 **Verre**</span> - Bouteilles en verre, bocaux, verres cassés
-   *Note : Cette catégorie inclut également la porcelaine et la céramique qui suivent des processus de recyclage similaires*
-   
-   <span class="waste-type">🥫 **Métal**</span> - Canettes en aluminium, boîtes de conserve, objets métalliques
-   
-   <span class="waste-type">📄 **Papier**</span> - Journaux, magazines, documents, papier d'emballage
-   
-   <span class="waste-type">📦 **Carton**</span> - Boîtes en carton, emballages, carton ondulé
+   <span class="waste-type">🥤 Plastique</span>
+   <span class="waste-type">🍷 Verre</span>
+   <span class="waste-type">🥫 Métal</span>
+   <span class="waste-type">📄 Papier</span>
+   <span class="waste-type">📦 Carton</span>
 
-### Précision sur la catégorie "Verre"
+Détail des catégories
+~~~~~~~~~~~~~~~~~~~~~
+
+**🥤 Plastique**
+    Bouteilles, emballages, sacs plastiques, contenants alimentaires
+
+**🍷 Verre** 
+    Bouteilles en verre, bocaux, verres cassés
+    
+    .. note::
+       Cette catégorie inclut également la porcelaine et la céramique qui suivent des processus de recyclage similaires
+
+**🥫 Métal**
+    Canettes en aluminium, boîtes de conserve, objets métalliques
+
+**📄 Papier**
+    Journaux, magazines, documents, papier d'emballage
+
+**📦 Carton**
+    Boîtes en carton, emballages, carton ondulé
+
+Précision sur la catégorie "Verre"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 La catégorie "Verre" englobe non seulement les objets en verre traditionnel, mais aussi :
-- La porcelaine (assiettes, tasses, objets décoratifs)
-- La céramique 
-- La faïence
+
+* La porcelaine (assiettes, tasses, objets décoratifs)
+* La céramique 
+* La faïence
 
 Cette classification est justifiée par le fait que ces matériaux partagent des caractéristiques similaires en termes de traitement et de recyclage, nécessitant souvent des processus de traitement thermique à haute température.
 
-## 🖥️ Interface Streamlit
+Interface Streamlit
+-------------------
 
-**Streamlit** est un framework Python open-source qui permet de créer rapidement des applications web interactives pour les projets de data science et d'apprentissage automatique. 
+**Streamlit** est un framework Python open-source qui permet de créer rapidement des applications web interactives pour les projets de data science et d'apprentissage automatique.
 
-### Avantages de Streamlit pour notre projet :
-- **Simplicité** : Interface intuitive sans nécessité de connaissances en développement web
-- **Interactivité** : Widgets intégrés pour l'upload d'images et l'affichage des résultats
-- **Temps réel** : Mise à jour instantanée des résultats de classification
-- **Déploiement facile** : Possibilité de déployer rapidement sur le cloud
-- **Visualisation** : Affichage optimisé des images et des résultats de classification
+Avantages de Streamlit pour notre projet
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **Simplicité** : Interface intuitive sans nécessité de connaissances en développement web
+* **Interactivité** : Widgets intégrés pour l'upload d'images et l'affichage des résultats
+* **Temps réel** : Mise à jour instantanée des résultats de classification
+* **Déploiement facile** : Possibilité de déployer rapidement sur le cloud
+* **Visualisation** : Affichage optimisé des images et des résultats de classification
+
+Fonctionnalités de l'interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 L'interface permet aux utilisateurs de :
-- Télécharger une image via drag & drop ou sélection de fichier
-- Visualiser l'image analysée
-- Obtenir instantanément le résultat de classification
-- Voir le niveau de confiance de la prédiction
 
----
+* Télécharger une image via drag & drop ou sélection de fichier
+* Visualiser l'image analysée
+* Obtenir instantanément le résultat de classification
+* Voir le niveau de confiance de la prédiction
 
-## 📚 Documentation
+Documentation
+-------------
 
 .. toctree::
    :maxdepth: 2
@@ -97,16 +130,15 @@ L'interface permet aux utilisateurs de :
    explication_projet
    explication_code
 
----
-
-## 🌍 Impact environnemental
+Impact environnemental
+----------------------
 
 Ce projet s'inscrit dans une démarche de développement durable en :
-- Facilitant le tri sélectif automatisé
-- Réduisant les erreurs de classification des déchets
-- Optimisant les processus de recyclage
-- Sensibilisant à l'importance du tri des déchets
 
----
+* Facilitant le tri sélectif automatisé
+* Réduisant les erreurs de classification des déchets
+* Optimisant les processus de recyclage
+* Sensibilisant à l'importance du tri des déchets
 
-*Projet réalisé dans le cadre de la formation en Intelligence Artificielle à l'ENSAM Meknès - 2024/2025*
+.. note::
+   *Projet réalisé dans le cadre de la formation en Intelligence Artificielle à l'ENSAM Meknès - 2024/2025*
