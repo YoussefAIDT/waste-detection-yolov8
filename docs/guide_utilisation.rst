@@ -1,7 +1,7 @@
 Guide d'utilisation
 ===================
 
-Ce projet permet de détecter automatiquement différents types de **déchets** dans des **images** ou **vidéos** à l'aide de modèles **YOLOv8 pré-entraînés**, combinant détection intelligente et classification avancée.
+Ce projet permet de détecter automatiquement différents types de **déchets** dans des **images** à l'aide de modèles **YOLOv8 pré-entraînés**, combinant détection intelligente et classification avancée.
 
 Structure du projet
 -------------------
@@ -114,10 +114,9 @@ Types de déchets reconnus
 Performance et optimisation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* **Temps de traitement** : < 2 secondes par image
-* **Précision** : > 85% sur les tests de validation
+* **Temps de traitement** : <10 secondes par image
+* **Précision** : > 80% sur les tests de validation
 * **Formats supportés** : JPG, PNG, JPEG
-* **Taille max** : 10 MB par image
 
 Remarques importantes et dépannage
 ----------------------------------
@@ -151,88 +150,9 @@ Limitations
 * Le lien LocalTunnel peut expirer après inactivité
 * Traitement limité aux images statiques (pas de vidéo en temps réel)
 
-Contact et Support
-==================
+📞 Contact & Support
+-----------------------
 
-Équipe de développement
-----------------------
+**Développé par Youssef ES-SAAIDI & Zakariae ZEMMAHI & Mohamed HAJJI**
 
-Pour toute question, suggestion ou problème technique, contactez l'équipe :
-
-**Étudiants développeurs :**
-
-* **Youssef ES-SAAIDI** 
-  
-  * GitHub: `@YoussefAIDT <https://github.com/YoussefAIDT>`_
-  * Email: youssef.essaaidi@ensam-meknes.ma
-
-* **Zakariae ZEMMAHI**
-  
-  * GitHub: `@zakariazemmahi <https://github.com/zakariazemmahi>`_
-  * Email: zakariae.zemmahi@ensam-meknes.ma
-
-* **Mohamed HAJJI**
-  
-  * GitHub: `@mohamedhajji11 <https://github.com/mohamedhajji11>`_
-  * Email: mohamed.hajji@ensam-meknes.ma
-
-**Encadrant académique :**
-
-* **Pr. Tawfik MASROUR**
-  
-  * Email: tawfik.masrour@ensam-meknes.ma
-  * Département: Intelligence Artificielle et Technologies de Data
-
-Support technique
------------------
-
-Types de support disponibles
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* **Issues GitHub** : Signalement de bugs et demandes d'amélioration
-* **Documentation** : Guide complet et FAQ disponibles
-* **Support académique** : Assistance pour l'utilisation dans le cadre pédagogique
-
-Comment obtenir de l'aide
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-1. **Consultez d'abord la documentation** et les sections de dépannage
-2. **Vérifiez les issues existantes** sur le repository GitHub
-3. **Créez une nouvelle issue** avec :
-   
-   * Description détaillée du problème
-   * Étapes pour reproduire l'erreur
-   * Captures d'écran si applicable
-   * Informations sur votre environnement
-
-4. **Contactez l'équipe** directement pour les questions urgentes
-
-Contribution au projet
-----------------------
-
-Le projet est ouvert aux contributions ! Pour participer :
-
-1. Forkez le repository
-2. Créez une branche pour votre fonctionnalité
-3. Effectuez vos modifications
-4. Soumettez une Pull Request
-
-**Types de contributions recherchées :**
-
-* Amélioration de la précision des modèles
-* Optimisation des performances
-* Ajout de nouveaux types de déchets
-* Amélioration de l'interface utilisateur
-* Documentation et traductions
-
-Institution
------------
-
-**École Nationale Supérieure d'Arts et Métiers (ENSAM)**
-
-* **Adresse** : Meknès, Maroc
-* **Site web** : `www.ensam-meknes.ma <http://www.ensam-meknes.ma>`_
-* **Département** : Génie Intelligence Artificielle et Technologies de Data - Systèmes Industriels
-
-.. note::
-   Ce projet s'inscrit dans le cadre des activités de recherche et développement de l'ENSAM Meknès, contribuant à l'innovation dans le domaine de l'intelligence artificielle appliquée à l'environnement.
+🐙 `YoussefAIDT GitHub <https://github.com/YoussefAIDT>`_ 🐙 `zakariazemmahi GitHub <https://github.com/zakariazemmahi>`_ 🐙 `mohamedhajji11 GitHub <https://github.com/mohamedhajji11>`_
