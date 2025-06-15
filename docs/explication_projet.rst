@@ -1,4 +1,3 @@
-```rst
 Explication générale du projet
 ==============================
 
