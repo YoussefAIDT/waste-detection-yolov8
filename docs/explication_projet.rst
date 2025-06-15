@@ -3,7 +3,7 @@ Explication du code source
 
 Cette section décrit en détail les deux parties fondamentales du projet **Smart Waste Detection**,
 qui repose sur l'utilisation de deux modèles YOLOv8 combinés pour une détection et classification 
-intelligente des déchets dans les environnements urbains et industriels. ++
+intelligente des déchets dans les environnements urbains et industriels. 
 
 Le système utilise une approche en deux étapes :
 
