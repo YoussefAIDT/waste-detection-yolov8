@@ -513,22 +513,3 @@ nouveaux environnements d'application.
    }
    </style>
 
-**Ressources supplémentaires :**
-
-- **Documentation technique** : Consultez les README des dépôts GitHub
-- **Jeux de données** : Disponibles sur Roboflow Universe
-- **Modèles pré-entraînés** : Téléchargement via les liens GitHub
-- **Tutoriels** : Notebooks Colab avec exemples d'utilisation
-- **Issues & Bugs** : Rapportez les problèmes via GitHub Issues
-- **Discussions** : Rejoignez les discussions dans les dépôts GitHub
-
-**Licence et utilisation :**
-
-Ce projet est distribué sous licence MIT. Vous êtes libre de l'utiliser, 
-le modifier et le distribuer selon les termes de cette licence.
-
-**Remerciements :**
-
-Nous remercions la communauté open-source, Ultralytics pour YOLOv8, 
-et Roboflow pour les outils de gestion des datasets qui ont rendu 
-ce projet possible.
