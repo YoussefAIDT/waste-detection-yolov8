@@ -131,6 +131,7 @@ Documentation
    guide_utilisation
    explication_projet
    explication_code
+   chatbot
 
 Project Structure
 ------------------
