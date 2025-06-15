@@ -4,9 +4,11 @@ Smart Waste Detection 🚀
 À propos du projet
 ------------------
 
-Le **Smart Waste Detection** est un système intelligent de détection et classification automatique des déchets utilisant l'intelligence artificielle. Ce projet révolutionnaire permet d'identifier automatiquement si un objet constitue un déchet et de le classer dans la catégorie de recyclage appropriée, contribuant ainsi à une gestion plus efficace des déchets et à la protection de l'environnement.
+Le **Smart Waste Detection** est un système intelligent de détection et classification automatique des déchets utilisant l'intelligence artificielle, spécialement conçu pour aider les agents de maintenance de l'école à maintenir un environnement propre et sain.
 
-Grâce à des techniques avancées d'apprentissage automatique et de vision par ordinateur, notre système analyse les images d'objets en temps réel et fournit une classification précise pour optimiser le processus de tri des déchets.
+Ce projet permet d'identifier automatiquement si un objet constitue un déchet et de le classer dans la catégorie de recyclage appropriée, facilitant ainsi le travail quotidien des équipes de nettoyage de l'ENSAM Meknès et contribuant à rendre notre établissement plus propre.
+
+Grâce à des techniques avancées d'apprentissage automatique et de vision par ordinateur, notre système analyse les images d'objets en temps réel et fournit une classification précise pour optimiser le processus de tri des déchets dans l'environnement scolaire.
 
 Équipe de développement
 -----------------------
@@ -14,14 +16,14 @@ Grâce à des techniques avancées d'apprentissage automatique et de vision par 
 Étudiants
 ~~~~~~~~~
 
-* **ES-SAAIDI Youssef** - `GitHub <https://github.com/YoussefAIDT>`_
-* **ZEMMAHI Zakariae** - `GitHub <https://github.com/zakariazemmahi>`_  
-* **HAJJI Mohamed** - `GitHub <https://github.com/mohamedhajji11>`_
+* **Youssef ES-SAAIDI** - `GitHub <https://github.com/YoussefAIDT>`_
+* **Zakariae ZEMMAHI** - `GitHub <https://github.com/zakariazemmahi>`_  
+* **Mohamed HAJJI** - `GitHub <https://github.com/mohamedhajji11>`_
 
 Encadrant
 ~~~~~~~~~
 
-* **MASROUR Tawfik** - `GitHub <https://github.com/MasrourTawfik>`_
+* **MASROUR Tawfik** - Professeur encadrant
 
 Institution
 ~~~~~~~~~~~
@@ -67,7 +69,7 @@ Détail des catégories
 ~~~~~~~~~~~~~~~~~~~~~
 
 **🥤 Plastique**
-    Bouteilles, emballages, sacs plastiques, contenants alimentaires
+    Bouteilles, sacs plastiques, contenants alimentaires
 
 **🍷 Verre** 
     Bouteilles en verre, bocaux, verres cassés
@@ -79,10 +81,10 @@ Détail des catégories
     Canettes en aluminium, boîtes de conserve, objets métalliques
 
 **📄 Papier**
-    Journaux, magazines, documents, papier d'emballage
+    Journaux, documents, papier d'emballage
 
 **📦 Carton**
-    Boîtes en carton, emballages, carton ondulé
+    Boîtes en carton, carton ondulé
 
 Précision sur la catégorie "Verre"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -135,10 +137,12 @@ Impact environnemental
 
 Ce projet s'inscrit dans une démarche de développement durable en :
 
-* Facilitant le tri sélectif automatisé
+* Aidant les agents de maintenance de l'école dans leur travail quotidien
+* Facilitant le tri sélectif automatisé dans l'environnement scolaire
 * Réduisant les erreurs de classification des déchets
-* Optimisant les processus de recyclage
-* Sensibilisant à l'importance du tri des déchets
+* Optimisant les processus de recyclage à l'ENSAM
+* Contribuant à maintenir un campus plus propre et respectueux de l'environnement
+* Sensibilisant la communauté étudiante à l'importance du tri des déchets
 
 .. note::
    *Projet réalisé dans le cadre de la formation en Intelligence Artificielle à l'ENSAM Meknès - 2024/2025*
