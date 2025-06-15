@@ -23,7 +23,7 @@ Grâce à des techniques avancées d'apprentissage automatique et de vision par 
 Encadrant
 ~~~~~~~~~
 
-* **MASROUR Tawfik** - Professeur encadrant
+* **MASROUR Tawfik** - `GitHub <https://github.com/MasrourTawfik>`_
 
 Institution
 ~~~~~~~~~~~
