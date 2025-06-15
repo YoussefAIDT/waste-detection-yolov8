@@ -27,7 +27,6 @@ Technologies utilisées
 - **Roboflow** : Plateforme d'annotation et de gestion de datasets
 - **Python** : Langage de programmation principal
 - **Ultralytics** : Framework d'apprentissage profond
-- **OpenCV** : Traitement d'images
 - **NumPy & Pandas** : Manipulation des données
 
 Collecte et préparation des données
