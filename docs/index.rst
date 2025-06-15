@@ -133,7 +133,7 @@ Documentation
    explication_code
 
 Project Structure
-=================
+------------------
 
 Voici la structure du projet ``waste-detection-yolov8`` :
 
