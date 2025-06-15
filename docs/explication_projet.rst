@@ -1,4 +1,3 @@
-```rst
 Explication générale du projet
 ==============================
 
@@ -236,14 +235,4 @@ L'alliance entre **technologie moderne** et **conscience écologique** fait de c
    }
    </style>
 
-**Support technique et ressources :**
 
-- 📚 **Documentation complète** : Guides d'installation et tutoriels détaillés
-- 🔧 **Support technique** : Assistance pour l'intégration et le déploiement  
-- 📊 **Ressources d'apprentissage** : Formation et exemples d'utilisation
-- 🚀 **Évolutions futures** : Améliorations continues et nouvelles fonctionnalités
-
-**Pour toute question ou collaboration :**
-
-N'hésitez pas à consulter nos profils GitHub ou à nous contacter directement pour toute question technique, suggestion d'amélioration ou opportunité de collaboration sur ce projet innovant.
-```
