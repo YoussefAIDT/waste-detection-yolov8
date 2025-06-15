@@ -309,11 +309,8 @@ nouveaux environnements d'application.
    <div style="background-color: #28a745; padding: 20px; border-radius: 10px; margin: 20px 0; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center;">
       <div style="color: white; font-family: 'Arial', sans-serif;">
          <h3 style="margin: 0 0 15px 0; font-size: 1.4em; font-weight: bold;">
-            🌱 Développé par l'équipe Smart Waste Detection
+            Développé par Youssef ES-SAAIDI & Zakariae ZEMMAHI & Mohamed HAJJI
          </h3>
-         <p style="margin: 10px 0; font-size: 1.1em; opacity: 0.9;">
-            Youssef ES-SAAIDI • Zakariae ZEMMAHI • Mohamed HAJJI
-         </p>
          <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 15px;">
             <div style="display: flex; align-items: center; gap: 8px;">
                <span style="font-size: 1.2em;">🐙</span>
@@ -334,14 +331,6 @@ nouveaux environnements d'application.
                </a>
             </div>
          </div>
-         <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.3);">
-            <p style="margin: 5px 0; font-size: 0.9em; opacity: 0.8;">
-               📧 Pour toute question technique ou collaboration
-            </p>
-            <p style="margin: 5px 0; font-size: 0.9em; opacity: 0.8;">
-               🚀 Contribuez au projet • 🌍 Ensemble pour un avenir plus propre
-            </p>
-         </div>
       </div>
    </div>
 
@@ -353,23 +342,3 @@ nouveaux environnements d'application.
       transform: translateY(-2px);
    }
    </style>
-
-**Ressources supplémentaires :**
-
-- **Documentation technique** : Consultez les README des dépôts GitHub
-- **Jeux de données** : Disponibles sur Roboflow Universe
-- **Modèles pré-entraînés** : Téléchargement via les liens GitHub
-- **Tutoriels** : Notebooks Colab avec exemples d'utilisation
-- **Issues & Bugs** : Rapportez les problèmes via GitHub Issues
-- **Discussions** : Rejoignez les discussions dans les dépôts GitHub
-
-**Licence et utilisation :**
-
-Ce projet est distribué sous licence MIT. Vous êtes libre de l'utiliser, 
-le modifier et le distribuer selon les termes de cette licence.
-
-**Remerciements :**
-
-Nous remercions la communauté open-source, Ultralytics pour YOLOv8, 
-et Roboflow pour les outils de gestion des datasets qui ont rendu 
-ce projet possible.
