@@ -65,8 +65,8 @@ permet d'éliminer rapidement les objets non pertinents avant l'étape de classi
 
 **Classes du modèle de détection :**
 
-- **Classe 0** : `waste` (déchet détecté)
-- **Classe 1** : `non_waste` (objet non considéré comme déchet)
+- **Classe 0** : `déchet` (déchet détecté)
+- **Classe 1** : `non_déchet` (objet non considéré comme déchet)
 
 ------------------------------------------------------------
 2. Classification : Quel type de déchet ?
