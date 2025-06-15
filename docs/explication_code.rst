@@ -55,7 +55,7 @@ permet d'éliminer rapidement les objets non pertinents avant l'étape de classi
    * - Architecture
      - YOLOv8n (nano - optimisé pour la vitesse)
    * - Classes
-     - 2 (waste, non_waste)
+     - 2 (déchet, non_déchet)
    * - Taille d'entrée
      - 640x640 pixels
    * - Format de sortie
