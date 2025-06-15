@@ -26,8 +26,7 @@ Technologies utilisées
 - **YOLOv8** : Architecture de détection d'objets en temps réel
 - **Roboflow** : Plateforme d'annotation et de gestion de datasets
 - **Python** : Langage de programmation principal
-- **PyTorch/Ultralytics** : Framework d'apprentissage profond
-- **OpenCV** : Traitement d'images
+- **Ultralytics** : Framework d'apprentissage profond
 - **NumPy & Pandas** : Manipulation des données
 
 Collecte et préparation des données
