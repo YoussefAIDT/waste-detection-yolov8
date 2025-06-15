@@ -192,41 +192,6 @@ de détection et classification robuste et efficace.
 - **Entrée** : Images
 - **Résolution** : Optimisé pour 640x640, supporte jusqu'à 1920x1080
 
-------------------------------------------------------------
-5. Déploiement et intégration
-------------------------------------------------------------
-
-**Environnements supportés :**
-
-- **Google Colab** : Idéal pour le prototypage et les tests
-- **Streamlit** : Interface web interactive pour les démonstrations
-- **Docker** : Déploiement en conteneur pour la production
-- **Edge devices** : Raspberry Pi, Jetson Nano (avec optimisations)
-
-**Exemple d'intégration Streamlit :**
-
-.. code-block:: python
-
-   import streamlit as st
-   
-   st.title("Smart Waste Detection System")
-   
-   uploaded_file = st.file_uploader("Choisir une image", type=['jpg', 'png'])
-   
-   if uploaded_file is not None:
-       # Traitement de l'image uploadée
-       results = process_image(uploaded_file)
-       
-       # Affichage des résultats
-       for result in results:
-           st.write(f"Type: {result['type']}, "
-                   f"Confiance: {result['overall_confidence']:.2f}")
-
-**Considérations de déploiement :**
-
-- Temps de chargement initial des modèles : ~2-3 secondes
-- Mémoire requise : ~2GB RAM, 1GB VRAM (optionnel)
-- Bande passante : Négligeable pour traitement local
 
 ------------------------------------------------------------
 6. Métriques et évaluation des performances
@@ -291,38 +256,7 @@ de détection et classification robuste et efficace.
      - 90.5%
      - 698
 
-**Temps de traitement moyen :**
 
-- Détection seule : ~45ms
-- Classification seule : ~35ms
-- Pipeline complet : ~85ms
-- Traitement par lot (8 images) : ~320ms
-
-------------------------------------------------------------
-7. Limitations et améliorations futures
-------------------------------------------------------------
-
-**Limitations actuelles :**
-
-- Performance réduite sur images de très faible résolution (< 320px)
-- Difficulté avec les objets partiellement occultés
-- Sensibilité aux conditions d'éclairage extrêmes
-- Classification moins précise pour les déchets mixtes
-
-**Améliorations prévues :**
-
-- Intégration de techniques d'augmentation de données
-- Modèle de segmentation pour les objets complexes
-- Support des vidéos en temps réel
-- Optimisation pour les appareils mobiles (TensorFlow Lite)
-- Extension à de nouvelles classes de déchets
-
-**Recommandations d'utilisation :**
-
-- Utiliser des images de bonne qualité (> 640px)
-- Assurer un éclairage suffisant
-- Éviter les arrière-plans trop chargés
-- Calibrer les seuils selon l'environnement d'usage
 
 ------------------------------------------------------------
 8. Conclusion et perspectives
