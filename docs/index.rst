@@ -23,7 +23,7 @@ Grâce à des techniques avancées d'apprentissage automatique et de vision par 
 Encadrant
 ~~~~~~~~~
 
-* **MASROUR Tawfik** - `GitHub <https://github.com/MasrourTawfik>`_
+* **MASROUR Tawfik** - - `GitHub <https://github.com/MasrourTawfik>`_
 
 Institution
 ~~~~~~~~~~~
@@ -131,6 +131,24 @@ Documentation
    guide_utilisation
    explication_projet
    explication_code
+
+Project Structure
+=================
+
+Voici la structure du projet ``waste-detection-yolov8`` :
+
+.. code-block:: text
+
+    waste-detection-yolov8/                     # Répertoire racine du projet
+    ├── Models/                                 # Contient des notebooks liés à la vision par ordinateur
+    │   ├── Application_de_comptur_vision.ipynb # Notebook de détection (à renommer sans faute de frappe)
+    │   └── Smart_waste_detection.ipynb         # Autre notebook d'application de détection
+    ├── ModelsSauvegarde/                       # Sauvegarde des anciens modèles (peut être renommé ou ignoré)
+    ├── docs/                                   # Répertoire de documentation (Read the Docs)
+    │   └── .readthedocs.yml                    # Fichier de configuration pour Read the Docs
+    ├── yolov8_best.pt                          # Modèle YOLOv8 entraîné pour la détection des déchets
+    ├── yolov8_waste_detect.ipynb               # Notebook principal pour tester le modèle YOLOv8
+    └── README.md                               # Fichier de description du projet (à enrichir si nécessaire)
 
 Impact environnemental
 ----------------------
