@@ -163,85 +163,16 @@ de détection et classification robuste et efficace.
 .. code-block:: python
 
    from ultralytics import YOLO
-   import cv2
-   import numpy as np
-
-   # Initialisation des modèles
+   
    model_detect = YOLO("/content/drive/MyDrive/yolov8_best_smartdetection.pt")
    model_classify = YOLO("/content/drive/MyDrive/yolov8_best.pt")
-
-   def process_image(image_path):
-       """
-       Traite une image complète : détection puis classification des déchets
-       
-       Args:
-           image_path (str): Chemin vers l'image à analyser
-           
-       Returns:
-           list: Liste des déchets détectés avec leurs types et positions
-       """
-       results = []
-       
-       # Étape 1: Détection des déchets
-       detection_results = model_detect(image_path)
-       
-       # Traitement de chaque détection
-       for box in detection_results[0].boxes:
-           if box.cls == 0:  # 0 = classe "déchet"
-               # Extraction des coordonnées de la boîte englobante
-               x1, y1, x2, y2 = box.xyxy[0].cpu().numpy()
-               confidence_detection = box.conf.cpu().numpy()
-               
-               # Étape 2: Recadrage de la région d'intérêt
-               cropped = crop_image(image_path, box.xyxy)
-               
-               # Étape 3: Classification du type de déchet
-               classification = model_classify(cropped)
-               waste_type = classification[0].names[classification[0].probs.top1]
-               confidence_classification = classification[0].probs.top1conf
-               
-               # Stockage des résultats
-               results.append({
-                   'type': waste_type,
-                   'bbox': [x1, y1, x2, y2],
-                   'detection_confidence': confidence_detection,
-                   'classification_confidence': confidence_classification,
-                   'overall_confidence': (confidence_detection * confidence_classification) ** 0.5
-               })
-               
-               print(f"Déchet détecté : {waste_type} "
-                     f"(confiance globale: {results[-1]['overall_confidence']:.2f})")
-       
-       return results
-
-**Fonction utilitaire de recadrage :**
-
-.. code-block:: python
-
-   def crop_image(image_path, bbox):
-       """
-       Recadre une image selon les coordonnées de la boîte englobante
-       
-       Args:
-           image_path (str): Chemin vers l'image source
-           bbox (tensor): Coordonnées [x1, y1, x2, y2] de la boîte
-           
-       Returns:
-           np.array: Image recadrée
-       """
-       # Chargement de l'image
-       image = cv2.imread(image_path)
-       
-       # Extraction des coordonnées (conversion tensor -> numpy)
-       x1, y1, x2, y2 = bbox[0].cpu().numpy().astype(int)
-       
-       # Recadrage avec vérification des limites
-       height, width = image.shape[:2]
-       x1, y1 = max(0, x1), max(0, y1)
-       x2, y2 = min(width, x2), min(height, y2)
-       
-       # Retour de la région recadrée
-       return image[y1:y2, x1:x2]
+   
+   results = model_detect("image.jpg")
+   for box in results[0].boxes:
+       if box.cls == 0:  # 0 = classe "déchet"
+           cropped = crop_image("image.jpg", box.xyxy)
+           classification = model_classify(cropped)
+           print("Type de déchet :", classification[0].names[classification[0].probs.top1])
 
 ------------------------------------------------------------
 4. Optimisations et considérations techniques
