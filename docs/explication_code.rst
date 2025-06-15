@@ -133,8 +133,7 @@ classification plus fine et précise.
 
 - **Précision globale** : > 85%
 - **Rappel moyen** : > 80%
-- **Temps de traitement** : < 200ms par image
-- **Taille du modèle** : < 50MB
+
 
 ------------------------------------------------------------
 3. Intégration des deux modèles dans un pipeline complet
