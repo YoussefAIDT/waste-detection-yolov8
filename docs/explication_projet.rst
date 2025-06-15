@@ -1,165 +1,199 @@
-Explication du code source
-==========================
+```rst
+Explication générale du projet
+==============================
 
-Cette section décrit en détail les deux parties fondamentales du projet **Smart Waste Detection**,
-qui repose sur l’utilisation de deux modèles **YOLOv8** combinés :
+Ce projet de vision par ordinateur a pour objectif de **détecter automatiquement les déchets** dans des images et de **classer ces déchets** selon leur type. Il s'appuie sur l'intelligence artificielle et l'apprentissage profond pour contribuer à la **préservation de l'environnement** et à l'amélioration de la **gestion des déchets**.
 
-1. Le **modèle de détection binaire** : détecte si un objet est un déchet ou non.
-2. Le **modèle de classification** : détermine le type de déchet parmi 5 classes.
+Le système utilise deux modèles YOLOv8 (You Only Look Once version 8) entraînés indépendamment :
 
-------------------------------------------------------------
-1. Détection : l'objet est-il un déchet ?
-------------------------------------------------------------
+1. **Modèle de détection** : Détermine si un objet constitue un déchet ou non selon le contexte
+2. **Modèle de classification** : Catégorise le type de déchet détecté parmi 5 classes principales
 
-Le premier modèle est entraîné pour **détecter la présence d’un déchet dans une image**.
-Il ne classe pas le type, mais indique si l’objet est considéré comme un **déchet** ou **non**.
+Cette approche en deux étapes permet d'obtenir une **précision élevée** et une **classification contextuelle intelligente**.
 
-.. code-block:: python
+Contexte et motivation
+----------------------
 
-   from ultralytics import YOLO
+La gestion des déchets représente un enjeu majeur dans les établissements scolaires et les espaces publics. Notre projet vise à :
 
-   # Chargement du modèle de détection binaire (déchet / non-déchet)
-   model_detect = YOLO("/content/drive/MyDrive/yolov8_best_smartdetection.pt")
+- **Automatiser la détection** des déchets dans l'environnement
+- **Faciliter le tri sélectif** par une classification automatique
+- **Sensibiliser** à la propreté et au respect de l'environnement
+- **Optimiser** les processus de nettoyage et de recyclage
 
-   # Prédiction sur une image donnée
-   results = model_detect("image.jpg")
+Technologies utilisées
+----------------------
 
-   # Filtrage des objets détectés comme "déchet" (classe 0)
-   waste_boxes = [box for box in results[0].boxes if box.cls == 0]
+- **YOLOv8** : Architecture de détection d'objets en temps réel
+- **Roboflow** : Plateforme d'annotation et de gestion de datasets
+- **Python** : Langage de programmation principal
+- **PyTorch/Ultralytics** : Framework d'apprentissage profond
+- **OpenCV** : Traitement d'images
+- **NumPy & Pandas** : Manipulation des données
 
-**Détails importants :**
+Collecte et préparation des données
+-----------------------------------
 
-- Le modèle a été entraîné avec **YOLOv8** sur un dataset personnalisé contenant deux classes : `waste` et `non_waste`.
-- Il s’agit d’un modèle **léger (YOLOv8n)**, optimisé pour des prédictions rapides.
-- Le fichier du modèle est nommé : `yolov8_best_smartdetection.pt`.
+Nous avons collecté manuellement des images dans notre établissement scolaire, en utilisant un téléphone portable. Ces photos représentent différentes situations réelles (objets considérés comme déchets ou non selon leur contexte).
 
-**Objectif** : filtrer uniquement les objets pertinents avant de les transmettre au modèle de classification.
+**Critères de collecte :**
 
-------------------------------------------------------------
-2. Classification : quel type de déchet ?
-------------------------------------------------------------
+- Diversité des angles de vue
+- Différentes conditions d'éclairage
+- Variété des contextes (intérieur/extérieur)
+- Objets de différentes tailles et formes
 
-Le deuxième modèle est spécialisé dans la **classification des objets détectés comme déchets** à l’étape précédente.
+.. note::
+   Ci-dessous quelques exemples d'images capturées illustrant l'importance du contexte :
 
-.. code-block:: python
+   .. image:: photo_table_bouteille.jpg.png
+      :alt: Bouteille sur une table - non déchet
+      :width: 300px
 
-   # Chargement du modèle de classification multi-classe
-   model_classify = YOLO("/content/drive/MyDrive/yolov8_best.pt")
+   .. image:: photo_main_bouteille.jpg.png
+      :alt: Bouteille dans la main - non déchet
+      :width: 300px
 
-   # Pour chaque objet identifié comme déchet, effectuer la classification
-   for box in waste_boxes:
-       # Extraction (recadrage) de l’objet à partir de ses coordonnées
-       cropped_img = crop_image("image.jpg", box.xyxy)
+   .. image:: photo_sol_bouteille.jpg.png
+      :alt: Bouteille au sol - déchet
+      :width: 300px
 
-       # Classification de l’objet recadré
-       result = model_classify(cropped_img)
+**Processus d'annotation :**
 
-       # Affichage de la classe prédite
-       print(result[0].names[result[0].probs.top1])
+Toutes les images ont été **annotées (labelisées)** via **Roboflow**, une plateforme d'étiquetage d'images en ligne professionnelle. Cette étape cruciale comprend :
 
-**Classes gérées par le modèle :**
+- Délimitation précise des objets (bounding boxes)
+- Attribution des labels appropriés
+- Vérification de la cohérence des annotations
+- Augmentation des données pour améliorer la robustesse du modèle
 
-.. list-table::
-   :header-rows: 1
-   :widths: 20 80
+.. image:: roboflow_capture.png.png
+   :alt: Interface Roboflow pour l'annotation des images
+   :width: 600px
 
-   * - ID
-     - Type de déchet
-   * - 0
-     - Plastique
-   * - 1
-     - Verre
-   * - 2
-     - Métal
-   * - 3
-     - Papier
-   * - 4
-     - Carton
+**Division du dataset :**
 
-------------------------------------------------------------
-3. Intégration des deux modèles dans un pipeline
-------------------------------------------------------------
+Les images ont été **réparties** selon la répartition standard :
+- **70% pour l'entraînement** (Training set)
+- **20% pour la validation** (Validation set)  
+- **10% pour les tests** (Test set)
 
-Voici un aperçu du **pipeline complet**, combinant la détection binaire et la classification :
+Modèle 1 – Détection Déchet ou Non-Déchet
+------------------------------------------
 
-.. code-block:: python
+Ce premier modèle constitue le cœur de notre système. Il est entraîné pour distinguer si un objet représente **un déchet ou non**, en se basant principalement sur **le contexte de la scène** plutôt que sur l'objet lui-même.
 
-   from ultralytics import YOLO
+**Principe de fonctionnement :**
 
-   # Chargement des deux modèles
-   model_detect = YOLO("/content/drive/MyDrive/yolov8_best_smartdetection.pt")
-   model_classify = YOLO("/content/drive/MyDrive/yolov8_best.pt")
+Le modèle analyse non seulement l'objet mais aussi son environnement pour prendre une décision contextuelle intelligente.
 
-   # Détection initiale
-   results = model_detect("image.jpg")
+**Exemples de classification contextuelle :**
 
-   for box in results[0].boxes:
-       if box.cls == 0:  # Si la classe est "déchet"
-           # Recadrage de l’objet détecté
-           cropped = crop_image("image.jpg", box.xyxy)
+- Une **bouteille sur une table** → *non déchet* (utilisation normale)
+- Une **bouteille tenue dans la main** → *non déchet* (en cours d'utilisation)
+- Une **bouteille jetée au sol** → *déchet* (abandonnée)
+- Un **papier dans une poubelle** → *non déchet* (bien placé)
+- Un **papier jeté par terre** → *déchet* (mal placé)
 
-           # Classification de l’objet recadré
-           classification = model_classify(cropped)
+.. image:: photo_table_bouteille.jpg.png
+   :alt: Bouteille sur table - Contexte d'utilisation normale
+   :width: 250px
 
-           # Affichage du type de déchet prédit
-           print("Type de déchet :", classification[0].names[classification[0].probs.top1])
+.. image:: photo_main_bouteille.jpg.png
+   :alt: Bouteille dans la main - En cours d'utilisation
+   :width: 250px
 
-------------------------------------------------------------
-4. Remarques techniques
-------------------------------------------------------------
+.. image:: photo_sol_bouteille.jpg.png
+   :alt: Bouteille jetée au sol - Déchet abandonné
+   :width: 250px
 
-- La fonction `crop_image` (non fournie ici) doit permettre d’extraire la **région de l’image correspondant à l’objet détecté**.
-- Le modèle YOLOv8 accepte en entrée :
-  - des **chemins de fichiers image**
-  - ou des **tableaux NumPy** (images en mémoire)
-- Chaque modèle a été entraîné indépendamment sur **Roboflow**, puis utilisé avec la bibliothèque **Ultralytics**.
+**Avantages de cette approche :**
 
-------------------------------------------------------------
-5. Conclusion
-------------------------------------------------------------
+- **Intelligence contextuelle** : Distinction basée sur la situation réelle
+- **Réduction des faux positifs** : Évite de classer comme déchets des objets en usage normal
+- **Adaptabilité** : Fonctionne dans différents environnements
 
-L’utilisation combinée des deux modèles permet :
+Modèle 2 – Classification des types de déchets
+----------------------------------------------
 
-- ✅ Une détection plus fiable (réduction des faux positifs)
-- ✅ Une classification plus précise et ciblée
-- ✅ Une architecture flexible, compatible avec différents environnements :
-  - Google Colab
-  - Caméras en temps réel
-  - Interfaces Web (Streamlit)
+Une fois qu'un objet est identifié comme **déchet** par le premier modèle, il est automatiquement transmis au second modèle pour être classé parmi **5 catégories** principales de déchets couramment rencontrés dans l'environnement scolaire.
 
-------------------------------------------------------------
-6. Support technique et environnement
-------------------------------------------------------------
+**Les 5 classes de déchets :**
 
-Pour exécuter correctement ce code, voici les éléments nécessaires :
+1. **Plastique** : Bouteilles, emballages, sacs plastiques
+2. **Carton** : Boîtes, emballages cartonnés
+3. **Papier** : Feuilles, journaux, documents
+4. **Verre (Glass)** : Bouteilles en verre, contenants
+5. **Métal** : Canettes, emballages métalliques
 
-**Bibliothèques requises :**
+**Exemples visuels par catégorie :**
 
-- `ultralytics` ≥ 8.x
-- `opencv-python` (si `crop_image` utilise OpenCV)
-- `numpy`
-- `matplotlib` *(optionnel, pour visualisation)*
+.. image:: plastique_exemple.png
+   :alt: Exemple de déchet plastique
+   :width: 200px
 
-**Fichiers requis :**
+.. image:: carton_exemple.png
+   :alt: Exemple de déchet carton
+   :width: 200px
 
-- `/content/drive/MyDrive/yolov8_best_smartdetection.pt` : modèle de détection binaire
-- `/content/drive/MyDrive/yolov8_best.pt` : modèle de classification
-- `image.jpg` : image d’entrée à analyser
-- `crop_image()` : fonction utilitaire à définir pour extraire un objet à partir de coordonnées `xyxy`
+.. image:: papier_exemple.png
+   :alt: Exemple de déchet papier
+   :width: 200px
 
-**Environnement recommandé :**
+.. image:: glass_exemple.png
+   :alt: Exemple de déchet verre
+   :width: 200px
 
-- Google Colab (GPU)
-- Python ≥ 3.8
-- Sauvegarde des modèles sur Google Drive pour une intégration facile
+.. image:: metal_exemple.png
+   :alt: Exemple de déchet métal
+   :width: 200px
 
-**Bonnes pratiques :**
+**Applications pratiques :**
 
-- Tester les deux modèles séparément avant l’intégration
-- Vérifier le format d’image et les dimensions attendues par YOLO
-- Ajouter des messages d’erreur si `waste_boxes` est vide (aucun déchet détecté)
+- **Tri automatique** pour le recyclage
+- **Statistiques** sur les types de déchets les plus fréquents
+- **Sensibilisation** ciblée selon les catégories de déchets
+- **Optimisation** des poubelles de tri sélectif
 
-------------------------------------------------------------
+Architecture technique
+----------------------
+
+**Pipeline de traitement :**
+
+1. **Acquisition d'image** → Capture via caméra ou upload de fichier
+2. **Prétraitement** → Redimensionnement et normalisation
+3. **Détection Modèle 1** → Classification déchet/non-déchet
+4. **Classification Modèle 2** → Si déchet détecté, classification du type
+5. **Post-traitement** → Affichage des résultats avec boîtes de délimitation
+
+**Métriques de performance :**
+
+- **Précision (Precision)** : Proportion de vraies détections parmi les détections positives
+- **Rappel (Recall)** : Proportion d'objets correctement détectés
+- **F1-Score** : Moyenne harmonique entre précision et rappel
+- **mAP (mean Average Precision)** : Métrique standard pour l'évaluation YOLO
+
+Conclusion
+----------
+
+Cette approche innovante à **double modélisation** (détection contextuelle + classification typologique) permet d'obtenir un système **intelligent et adaptatif**, capable de :
+
+- **Reconnaître automatiquement les déchets** selon leur contexte d'utilisation
+- **Les catégoriser précisément** pour faciliter le tri sélectif
+- **Contribuer activement** à la propreté et à la gestion environnementale
+- **Sensibiliser** les utilisateurs aux bonnes pratiques écologiques
+
+Ce projet démontre le potentiel de l'intelligence artificielle appliquée aux **enjeux environnementaux** et ouvre la voie vers des solutions automatisées pour la **gestion intelligente des déchets** dans les établissements scolaires et les espaces publics.
+
+**Impact attendu :**
+
+- Réduction significative des déchets mal triés
+- Amélioration de la propreté des espaces
+- Sensibilisation accrue au recyclage
+- Optimisation des coûts de gestion des déchets
+
+L'alliance entre **technologie moderne** et **conscience écologique** fait de ce projet une contribution concrète vers un **avenir plus propre et durable**.
+
 📞 Contact & Support
 ----------------------
 
@@ -168,11 +202,8 @@ Pour exécuter correctement ce code, voici les éléments nécessaires :
    <div style="background-color: #28a745; padding: 20px; border-radius: 10px; margin: 20px 0; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center;">
       <div style="color: white; font-family: 'Arial', sans-serif;">
          <h3 style="margin: 0 0 15px 0; font-size: 1.4em; font-weight: bold;">
-            🌱 Développé par l'équipe Smart Waste Detection
+            Développé par Youssef ES-SAAIDI & Zakariae ZEMMAHI & Mohamed HAJJI
          </h3>
-         <p style="margin: 10px 0; font-size: 1.1em; opacity: 0.9;">
-            Youssef ES-SAAIDI • Zakariae ZEMMAHI • Mohamed HAJJI
-         </p>
          <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 15px;">
             <div style="display: flex; align-items: center; gap: 8px;">
                <span style="font-size: 1.2em;">🐙</span>
@@ -193,14 +224,6 @@ Pour exécuter correctement ce code, voici les éléments nécessaires :
                </a>
             </div>
          </div>
-         <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.3);">
-            <p style="margin: 5px 0; font-size: 0.9em; opacity: 0.8;">
-               📧 Pour toute question technique ou collaboration
-            </p>
-            <p style="margin: 5px 0; font-size: 0.9em; opacity: 0.8;">
-               🚀 Contribuez au projet • 🌍 Ensemble pour un avenir plus propre
-            </p>
-         </div>
       </div>
    </div>
 
@@ -212,3 +235,15 @@ Pour exécuter correctement ce code, voici les éléments nécessaires :
       transform: translateY(-2px);
    }
    </style>
+
+**Support technique et ressources :**
+
+- 📚 **Documentation complète** : Guides d'installation et tutoriels détaillés
+- 🔧 **Support technique** : Assistance pour l'intégration et le déploiement  
+- 📊 **Ressources d'apprentissage** : Formation et exemples d'utilisation
+- 🚀 **Évolutions futures** : Améliorations continues et nouvelles fonctionnalités
+
+**Pour toute question ou collaboration :**
+
+N'hésitez pas à consulter nos profils GitHub ou à nous contacter directement pour toute question technique, suggestion d'amélioration ou opportunité de collaboration sur ce projet innovant.
+```
