@@ -1,4 +1,3 @@
-```rst
 Explication du code source
 ==========================
 
