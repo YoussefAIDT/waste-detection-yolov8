@@ -6,8 +6,7 @@ intégré au système de détection de déchets qui aide les utilisateurs à loc
 poubelles les plus proches de leur position actuelle et fournit des informations 
 contextuelles sur l'environnement du campus.
 
-Le chatbot utilise une combinaison de traitement du langage naturel, de géolocalisation 
-contextuelle et de base de données des infrastructures du campus pour offrir une 
+Le chatbot utilise une combinaison de traitement du langage naturel et de base de données des infrastructures du campus pour offrir une 
 assistance personnalisée et précise.
 
 ------------------------------------------------------------
@@ -26,11 +25,9 @@ en fournissant des informations instantanées et pertinentes sur :
 
 .. code-block:: text
 
-   Utilisateur (Position/Question)
+   Utilisateur (Question)
             ↓
    Traitement du langage naturel
-            ↓
-   Géolocalisation contextuelle
             ↓
    Base de données campus
             ↓
@@ -78,35 +75,7 @@ vers les poubelles les plus appropriées selon plusieurs critères :
    🌱 Zone info : Salle TD2 - Zone d'enseignement
    Surface : 27,260 pixels (7.98% du campus)
    Capacité : ~40 étudiants"
-
-**2.2 Reconnaissance contextuelle des lieux**
-
-Le système reconnaît automatiquement les principales zones du campus :
-
-.. list-table::
-   :header-rows: 1
-   :widths: 30 70
-
-   * - Zone reconnue
-     - Poubelles disponibles
-   * - Département Génie Civil
-     - Poubelles générales, bacs métal/plastique
-   * - Département Mécanique
-     - Points de tri spécialisés, conteneurs métal
-   * - Bibliothèque
-     - Bacs papier/carton, poubelles silencieuses
-   * - Amphis 1 & 2
-     - Poubelles haute capacité, tri sélectif
-   * - Amphis 3 & 4
-     - Points de collecte post-événements
-   * - Administration
-     - Bacs papier confidentiel, poubelles standard
-   * - Centre de Recherche
-     - Conteneurs spécialisés, déchets techniques
-   * - Département Informatique
-     - Bacs DEEE, poubelles électroniques
-   * - Espaces Verts
-     - Composteurs, bacs déchets organiques
+s
 
 ------------------------------------------------------------
 3. Implémentation technique
