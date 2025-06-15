@@ -158,7 +158,7 @@ Limitations
    <div style="background-color: #28a745; padding: 20px; border-radius: 10px; margin: 20px 0; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center;">
       <div style="color: white; font-family: 'Arial', sans-serif;">
          <h3 style="margin: 0 0 15px 0; font-size: 1.4em; font-weight: bold;">
-            **Développé par Youssef ES-SAAIDI & Zakariae ZEMMAHI & Mohamed HAJJI**
+            Développé par Youssef ES-SAAIDI & Zakariae ZEMMAHI & Mohamed HAJJI
          </h3>
          <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 15px;">
             <div style="display: flex; align-items: center; gap: 8px;">
