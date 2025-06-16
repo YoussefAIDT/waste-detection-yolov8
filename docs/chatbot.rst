@@ -512,40 +512,7 @@ Le chatbot collecte des métriques pour l'amélioration continue :
      - >= 1.25
      - Interface utilisateur web
 
-8.2 Structure des fichiers
-==========================
 
-.. code-block:: text
-
-   projet/
-   ├── main.py                 # Script principal avec classes
-   ├── data/
-   │   ├── faq.json           # Base de données FAQ
-   │   └── locations.json     # Données de localisation
-   ├── requirements.txt       # Dépendances Python
-   └── README.md             # Documentation utilisateur
-
-8.3 Configuration et lancement
-==============================
-
-**Fichier requirements.txt :**
-
-.. code-block:: text
-
-   spacy>=3.4.0
-   scikit-learn>=1.0.0
-   numpy>=1.21.0
-   streamlit>=1.25.0
-
-**Lancement de l'application :**
-
-.. code-block:: bash
-
-   # Mode Streamlit (interface web)
-   streamlit run main.py
-
-   # Mode console (développement)
-   python main.py
 
 ------------------------------------------------------------
 9. Exemples d'Interactions
