@@ -3,7 +3,7 @@ Chatbot Smart Waste Detection
 ========================================
 
 Documentation Technique
-========================
+=========================
 
 Cette documentation présente le **Chatbot Smart Waste Detection**, un assistant intelligent 
 utilisant le traitement du langage naturel (NLP) pour aider les utilisateurs à localiser 
