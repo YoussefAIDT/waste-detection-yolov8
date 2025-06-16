@@ -4,8 +4,8 @@ import sys
 
 # Configuration du projet
 project = 'Smart Waste Detection'
-copyright = '2025, Votre Nom'
-author = 'Votre Nom'
+copyright = '2025, ES-SAAIDI Youssef - ZEMMAHI Zakariae - HAJJI Mohamed'
+author = ' ES-SAAIDI Youssef - ZEMMAHI Zakariae - HAJJI Mohamed'
 release = '1.0.0'
 
 # Extensions Sphinx - MINIMAL
