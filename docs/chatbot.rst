@@ -565,7 +565,7 @@ Le chatbot collecte des métriques pour l'amélioration continue :
 
 
 ------------------------------------------------------------
-11. Conclusion
+10. Conclusion
 ------------------------------------------------------------
 
 Le **Chatbot Smart Waste Detection** offre une solution complète et évolutive pour l'assistance 
