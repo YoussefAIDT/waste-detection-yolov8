@@ -588,3 +588,46 @@ extensions futures.
 
 Ce chatbot constitue une base solide pour développer des assistants intelligents 
 dans le domaine environnemental et peut être adapté à d'autres contextes d'utilisation.
+
+
+📞 Contact & Support
+-----------------------
+
+.. raw:: html
+
+   <div style="background-color: #28a745; padding: 20px; border-radius: 10px; margin: 20px 0; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center;">
+      <div style="color: white; font-family: 'Arial', sans-serif;">
+         <h3 style="margin: 0 0 15px 0; font-size: 1.4em; font-weight: bold;">
+            Développé par Youssef ES-SAAIDI & Zakariae ZEMMAHI & Mohamed HAJJI
+         </h3>
+         <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 15px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+               <span style="font-size: 1.2em;">🐙</span>
+               <a href="https://github.com/YoussefAIDT" target="_blank" style="color: #ffffff; text-decoration: none; font-weight: 500; padding: 5px 10px; background-color: rgba(255,255,255,0.2); border-radius: 5px; transition: all 0.3s ease;">
+                  YoussefAIDT GitHub
+               </a>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+               <span style="font-size: 1.2em;">🐙</span>
+               <a href="https://github.com/zakariazemmahi" target="_blank" style="color: #ffffff; text-decoration: none; font-weight: 500; padding: 5px 10px; background-color: rgba(255,255,255,0.2); border-radius: 5px; transition: all 0.3s ease;">
+                  zakariazemmahi GitHub
+               </a>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+               <span style="font-size: 1.2em;">🐙</span>
+               <a href="https://github.com/mohamedhajji11" target="_blank" style="color: #ffffff; text-decoration: none; font-weight: 500; padding: 5px 10px; background-color: rgba(255,255,255,0.2); border-radius: 5px; transition: all 0.3s ease;">
+                  mohamedhajji11 GitHub
+               </a>
+            </div>
+         </div>
+      </div>
+   </div>
+
+.. raw:: html
+
+   <style>
+   div a:hover {
+      background-color: rgba(255,255,255,0.3) !important;
+      transform: translateY(-2px);
+   }
+   </style>
