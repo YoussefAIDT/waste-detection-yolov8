@@ -1,738 +1,427 @@
-Chatbot Smart Waste Detection
-=============================
-
-Cette section présente le **Chatbot Smart Waste Detection**, un assistant intelligent 
-intégré au système de détection de déchets qui aide les utilisateurs à localiser les 
-poubelles les plus proches de leur position actuelle et fournit des informations 
-contextuelles sur l'environnement du campus.
-
-Le chatbot utilise une combinaison de traitement du langage naturel et de base de données des infrastructures du campus pour offrir une 
-assistance personnalisée et précise.
-
-------------------------------------------------------------
-1. Vue d'ensemble du système
-------------------------------------------------------------
-
-Le chatbot Smart Waste Detection est conçu pour améliorer l'expérience utilisateur 
-en fournissant des informations instantanées et pertinentes sur :
-
-- **Localisation des poubelles** : Identification des points de collecte les plus proches
-- **Informations environnementales** : Détails sur les zones du campus
-- **Conseils de tri** : Recommandations pour un tri optimal des déchets
-- **Navigation** : Directions précises vers les points de collecte
-
-**Architecture du chatbot :**
-
-.. code-block:: text
-
-   Utilisateur (Question)
-            ↓
-   Traitement du langage naturel
-            ↓
-   Base de données campus
-            ↓
-   Génération de réponse
-            ↓
-   Interface utilisateur
-
-------------------------------------------------------------
-2. Fonctionnalités principales
-------------------------------------------------------------
-
-**2.1 Localisation intelligente des poubelles**
-
-Le chatbot peut identifier votre position actuelle sur le campus et vous diriger 
-vers les poubelles les plus appropriées selon plusieurs critères :
-
-.. code-block:: python
-
-   # Exemple d'interaction avec le chatbot
-   user_input = "Je suis près de la salle TD2, où puis-je jeter mes déchets ?"
-   
-   # Traitement de la requête
-   location = extract_location(user_input)  # "TD2"
-   waste_type = detect_waste_context(user_input)  # "general"
-   
-   # Recherche des poubelles proches
-   nearby_bins = find_nearby_bins(location, waste_type)
-   
-   # Génération de la réponse
-   response = generate_response(location, nearby_bins)
-
-**Exemple de conversation :**
-
-.. code-block:: text
-
-   Utilisateur: "Je suis à côté de la salle TD2"
-   
-   Chatbot: "🏫 Vous êtes près de la Salle TD2 !
-   
-   📍 Poubelles les plus proches :
-   • À 15m : Poubelle générale (à côté de la porte principale)
-   • À 25m : Point de tri sélectif (près de l'escalier)
-   • À 30m : Bac de recyclage papier (couloir principal)
-   
-   🌱 Zone info : Salle TD2 - Zone d'enseignement
-   Surface : 27,260 pixels (7.98% du campus)
-   Capacité : ~40 étudiants"
-s
-
-------------------------------------------------------------
-3. Implémentation technique
-------------------------------------------------------------
-
-**3.1 Traitement du langage naturel**
-
-Le chatbot utilise des techniques avancées de NLP pour comprendre les requêtes :
-
-.. code-block:: python
-
-   import spacy
-   import re
-   from typing import Dict, List, Tuple
-   
-   class SmartWasteChatbot:
-       def __init__(self):
-           # Chargement du modèle de langue française
-           self.nlp = spacy.load("fr_core_news_sm")
-           
-           # Base de données des lieux du campus
-           self.campus_locations = {
-               'td2': {
-                   'name': 'Salle TD2',
-                   'type': 'Zone d\'enseignement',
-                   'surface': 27260,
-                   'percentage': 7.98,
-                   'bins': [
-                       {'type': 'générale', 'distance': 15, 'location': 'porte principale'},
-                       {'type': 'tri_sélectif', 'distance': 25, 'location': 'escalier'},
-                       {'type': 'papier', 'distance': 30, 'location': 'couloir principal'}
-                   ]
-               },
-               'genie_civil': {
-                   'name': 'Département Génie Civil',
-                   'type': 'Zone académique',
-                   'surface': 41633,
-                   'percentage': 12.19,
-                   'bins': [
-                       {'type': 'générale', 'distance': 10, 'location': 'hall d\'entrée'},
-                       {'type': 'métal_plastique', 'distance': 20, 'location': 'laboratoire'},
-                       {'type': 'papier_carton', 'distance': 35, 'location': 'salle des profs'}
-                   ]
-               },
-               'bibliotheque': {
-                   'name': 'Bibliothèque',
-                   'type': 'Zone de ressources',
-                   'surface': 30724,
-                   'percentage': 9.0,
-                   'bins': [
-                       {'type': 'papier_silencieuse', 'distance': 5, 'location': 'accueil'},
-                       {'type': 'générale_silencieuse', 'distance': 12, 'location': 'zone lecture'},
-                       {'type': 'carton', 'distance': 25, 'location': 'réserve'}
-                   ]
-               }
-               # ... autres lieux
-           }
-       
-       def extract_location(self, text: str) -> str:
-           """
-           Extrait la localisation mentionnée dans le texte
-           
-           Args:
-               text (str): Texte de l'utilisateur
-               
-           Returns:
-               str: Localisation identifiée
-           """
-           text_lower = text.lower()
-           
-           # Patterns de reconnaissance des lieux
-           location_patterns = {
-               'td2': r'td\s*2|salle\s*td\s*2|td2',
-               'td1': r'td\s*1|salle\s*td\s*1|td1',
-               'genie_civil': r'génie\s*civil|genie\s*civil|gc',
-               'mecanique': r'mécanique|mecanique|meca',
-               'informatique': r'informatique|info|computer',
-               'bibliotheque': r'bibliothèque|bibliotheque|biblio|library',
-               'amphi1': r'amphi\s*1|amphithéâtre\s*1',
-               'amphi2': r'amphi\s*2|amphithéâtre\s*2',
-               'administration': r'administration|admin|bureau',
-               'recherche': r'recherche|labo|laboratoire'
-           }
-           
-           for location, pattern in location_patterns.items():
-               if re.search(pattern, text_lower):
-                   return location
-           
-           return None
-       
-       def find_nearby_bins(self, location: str) -> List[Dict]:
-           """
-           Trouve les poubelles proches d'une localisation
-           
-           Args:
-               location (str): Localisation de référence
-               
-           Returns:
-               List[Dict]: Liste des poubelles avec distances
-           """
-           if location not in self.campus_locations:
-               return []
-           
-           bins = self.campus_locations[location]['bins']
-           # Tri par distance
-           return sorted(bins, key=lambda x: x['distance'])
-       
-       def generate_response(self, location: str, user_text: str) -> str:
-           """
-           Génère une réponse contextuelle
-           
-           Args:
-               location (str): Localisation identifiée
-               user_text (str): Texte original de l'utilisateur
-               
-           Returns:
-               str: Réponse formatée du chatbot
-           """
-           if not location or location not in self.campus_locations:
-               return self._generate_help_response()
-           
-           location_data = self.campus_locations[location]
-           nearby_bins = self.find_nearby_bins(location)
-           
-           response = f"🏫 Vous êtes près de {location_data['name']} !\n\n"
-           
-           # Informations sur les poubelles
-           response += "📍 Poubelles les plus proches :\n"
-           for i, bin_info in enumerate(nearby_bins[:3]):  # 3 plus proches
-               response += f"• À {bin_info['distance']}m : {bin_info['type'].replace('_', ' ').title()}"
-               response += f" ({bin_info['location']})\n"
-           
-           # Informations sur la zone
-           response += f"\n🌱 Zone info : {location_data['name']} - {location_data['type']}\n"
-           response += f"Surface : {location_data['surface']:,} pixels ({location_data['percentage']}% du campus)\n"
-           
-           # Conseils contextuels
-           response += self._add_contextual_tips(location_data['type'])
-           
-           return response
-       
-       def _add_contextual_tips(self, zone_type: str) -> str:
-           """Ajoute des conseils selon le type de zone"""
-           tips = {
-               'Zone d\'enseignement': "\n💡 Conseil : Privilégiez les poubelles silencieuses pendant les cours",
-               'Zone académique': "\n💡 Conseil : Utilisez les bacs spécialisés pour les matériaux techniques",
-               'Zone de ressources': "\n💡 Conseil : Respectez le silence, utilisez les poubelles désignées",
-               'Zone administrative': "\n💡 Conseil : Papiers confidentiels → bacs sécurisés"
-           }
-           return tips.get(zone_type, "\n💡 Conseil : Respectez le tri sélectif")
-       
-       def _generate_help_response(self) -> str:
-           """Génère une réponse d'aide générale"""
-           return """
-   🤖 Assistant Smart Waste Detection
-   
-   Je peux vous aider à localiser les poubelles sur le campus !
-   
-   📍 Dites-moi où vous êtes :
-   • "Je suis à la salle TD2"
-   • "Je suis au département informatique"
-   • "Je suis près de la bibliothèque"
-   
-   🗑️ Types de déchets gérés :
-   • Général • Recyclable • Papier/Carton • Métal/Plastique
-   
-   Tapez votre localisation pour commencer !
-   """
-
-**3.2 Interface utilisateur**
-
-Le chatbot peut être intégré dans différentes interfaces :
-
-.. code-block:: python
-
-   # Exemple d'intégration Streamlit
-   import streamlit as st
-   
-   def main():
-       st.title("🤖 Assistant Smart Waste")
-       
-       # Initialisation du chatbot
-       if 'chatbot' not in st.session_state:
-           st.session_state.chatbot = SmartWasteChatbot()
-       
-       # Interface de chat
-       user_input = st.text_input("💬 Où êtes-vous sur le campus ?")
-       
-       if user_input:
-           location = st.session_state.chatbot.extract_location(user_input)
-           response = st.session_state.chatbot.generate_response(location, user_input)
-           
-           st.markdown("### 🤖 Réponse :")
-           st.markdown(response)
-       
-       # Carte interactive (optionnelle)
-       if st.button("📍 Voir la carte du campus"):
-           st.image("campus_map.jpg", caption="Plan du campus")
-
-------------------------------------------------------------
-4. Exemples d'interactions
-------------------------------------------------------------
-
-**4.1 Localisation basique**
-
-.. code-block:: text
-
-   Utilisateur: "Où jeter mes déchets près du département informatique ?"
-   
-   Chatbot: "🏫 Vous êtes près du Département Informatique !
-   
-   📍 Poubelles les plus proches :
-   • À 8m : Bac DEEE (équipements électroniques)
-   • À 15m : Poubelle générale (hall principal)
-   • À 22m : Tri sélectif (près de l'ascenseur)
-   
-   🌱 Zone info : Département Informatique - Zone académique
-   Surface : 10,590 pixels (3.1% du campus)
-   
-   💡 Conseil : Pour les déchets électroniques, utilisez le bac DEEE spécialisé"
-
-**4.2 Requête avec type de déchet**
-
-.. code-block:: text
-
-   Utilisateur: "J'ai des papiers à jeter, je suis à la bibliothèque"
-   
-   Chatbot: "🏫 Vous êtes près de la Bibliothèque !
-   
-   📄 Pour vos papiers, voici les options :
-   • À 5m : Bac papier silencieux (accueil) ⭐ RECOMMANDÉ
-   • À 25m : Bac carton (réserve) - pour gros volumes
-   
-   🌱 Zone info : Bibliothèque - Zone de ressources
-   Surface : 30,724 pixels (9.0% du campus)
-   
-   💡 Conseil : Respectez le silence, le bac papier à l'accueil est idéal"
-
-**4.3 Navigation détaillée**
-
-.. code-block:: text
-
-   Utilisateur: "Comment aller à la poubelle la plus proche depuis l'amphi 3 ?"
-   
-   Chatbot: "🏫 Depuis l'Amphi 3 & 4 + Conférence :
-   
-   🚶‍♂️ Directions vers la poubelle la plus proche :
-   1. Sortez de l'amphi par la porte principale
-   2. Tournez à droite dans le couloir
-   3. La poubelle haute capacité est à 12m sur votre gauche
-   
-   📍 Alternatives :
-   • À 18m : Point de tri sélectif (fin de couloir)
-   • À 25m : Bac de recyclage (près de l'escalier)
-   
-   🌱 Zone info : Amphi 3 et 4 + Conférence - Zone d'enseignement
-   Surface : 29,025 pixels (8.5% du campus)
-   
-   💡 Conseil : Après les événements, utilisez les points de collecte spécialisés"
-
-------------------------------------------------------------
-5. Fonctionnalités avancées
-------------------------------------------------------------
-
-**5.1 Détection automatique du contexte**
-
-Le chatbot peut détecter le contexte d'utilisation :
-
-.. code-block:: python
-
-   def detect_context(self, text: str, time_of_day: str) -> Dict:
-       """
-       Détecte le contexte d'utilisation
-       
-       Args:
-           text (str): Message de l'utilisateur
-           time_of_day (str): Heure actuelle
-           
-       Returns:
-           Dict: Contexte détecté
-       """
-       context = {
-           'urgency': 'normal',
-           'waste_volume': 'small',
-           'special_requirements': []
-       }
-       
-       # Détection d'urgence
-       urgent_keywords = ['urgent', 'rapidement', 'vite', 'pressé']
-       if any(keyword in text.lower() for keyword in urgent_keywords):
-           context['urgency'] = 'high'
-       
-       # Détection du volume
-       volume_keywords = {
-           'large': ['beaucoup', 'énorme', 'gros volume', 'plein'],
-           'small': ['petit', 'peu', 'un peu']
-       }
-       
-       for volume, keywords in volume_keywords.items():
-           if any(keyword in text.lower() for keyword in keywords):
-               context['waste_volume'] = volume
-               break
-       
-       # Détection d'exigences spéciales
-       if 'silencieux' in text.lower() or 'bibliothèque' in text.lower():
-           context['special_requirements'].append('silent')
-       
-       if 'recyclage' in text.lower() or 'tri' in text.lower():
-           context['special_requirements'].append('recycling')
-       
-       return context
-
-**5.2 Historique et apprentissage**
-
-.. code-block:: python
-
-   class ChatbotMemory:
-       def __init__(self):
-           self.user_history = {}
-           self.frequent_locations = {}
-       
-       def update_user_pattern(self, user_id: str, location: str, timestamp: str):
-           """Met à jour les patterns d'utilisation de l'utilisateur"""
-           if user_id not in self.user_history:
-               self.user_history[user_id] = []
-           
-           self.user_history[user_id].append({
-               'location': location,
-               'timestamp': timestamp
-           })
-           
-           # Mise à jour des lieux fréquents
-           if location not in self.frequent_locations:
-               self.frequent_locations[location] = 0
-           self.frequent_locations[location] += 1
-       
-       def get_personalized_suggestions(self, user_id: str) -> List[str]:
-           """Retourne des suggestions personnalisées"""
-           if user_id not in self.user_history:
-               return []
-           
-           # Analyse des lieux fréquents de l'utilisateur
-           user_locations = [visit['location'] for visit in self.user_history[user_id]]
-           location_counts = {}
-           
-           for loc in user_locations:
-               location_counts[loc] = location_counts.get(loc, 0) + 1
-           
-           # Suggestions basées sur l'historique
-           suggestions = []
-           for loc, count in sorted(location_counts.items(), key=lambda x: x[1], reverse=True)[:3]:
-               suggestions.append(f"Retourner à {loc} (visité {count} fois)")
-           
-           return suggestions
-
-**5.3 Intégration avec le système de détection**
-
-.. code-block:: python
-
-   def integrate_with_detection_system(self, image_results: List[Dict]) -> str:
-       """
-       Intègre les résultats de détection avec les conseils du chatbot
-       
-       Args:
-           image_results (List[Dict]): Résultats de la détection d'image
-           
-       Returns:
-           str: Conseils personnalisés basés sur les déchets détectés
-       """
-       if not image_results:
-           return "Aucun déchet détecté dans l'image."
-       
-       response = "🔍 Déchets détectés dans votre image :\n\n"
-       
-       for i, result in enumerate(image_results, 1):
-           waste_type = result['type']
-           confidence = result['overall_confidence']
-           
-           response += f"{i}. {waste_type.title()} (confiance: {confidence:.0%})\n"
-           
-           # Conseils spécifiques par type
-           tips = self._get_disposal_tips(waste_type)
-           response += f"   💡 {tips}\n\n"
-       
-       response += "📍 Utilisez la commande 'Où jeter ?' pour localiser les poubelles appropriées !"
-       
-       return response
-   
-   def _get_disposal_tips(self, waste_type: str) -> str:
-       """Retourne des conseils de tri spécifiques"""
-       tips = {
-           'plastique': "Videz et rincez avant de jeter dans le bac plastique",
-           'verre': "Retirez les bouchons, jetez dans le bac verre",
-           'métal': "Conservez les canettes et boîtes de conserve pour le recyclage",
-           'papier': "Évitez le papier souillé, privilégiez le bac papier propre",
-           'carton': "Aplatissez les cartons pour optimiser l'espace"
-       }
-       return tips.get(waste_type, "Respectez les consignes de tri de votre région")
-
-------------------------------------------------------------
-6. Configuration et déploiement
-------------------------------------------------------------
-
-**6.1 Installation des dépendances**
-
-.. code-block:: bash
-
-   # Installation des packages requis
-   pip install spacy streamlit pandas numpy
-   
-   # Téléchargement du modèle français
-   python -m spacy download fr_core_news_sm
-   
-   # Packages optionnels pour fonctionnalités avancées
-   pip install geopy folium sqlite3
-
-**6.2 Configuration de base**
-
-.. code-block:: python
-
-   # config.py
-   CHATBOT_CONFIG = {
-       'language': 'fr',
-       'max_response_length': 500,
-       'default_search_radius': 50,  # mètres
-       'confidence_threshold': 0.7,
-       'enable_learning': True,
-       'save_history': True,
-       'silent_mode_locations': ['bibliothèque', 'étude'],
-       'emergency_contact': 'maintenance@campus.fr'
-   }
-   
-   # Personnalisation des réponses
-   RESPONSE_TEMPLATES = {
-       'greeting': "🤖 Bonjour ! Je suis votre assistant Smart Waste. Comment puis-je vous aider ?",
-       'location_not_found': "🤔 Je n'ai pas reconnu cette localisation. Pouvez-vous préciser ?",
-       'no_bins_nearby': "🚫 Aucune poubelle trouvée dans cette zone. Consultez la carte complète ?",
-       'success': "✅ Parfait ! J'espère que ces informations vous ont été utiles."
-   }
-
-**6.3 Déploiement en production**
-
-.. code-block:: python
-
-   # app.py - Application Streamlit complète
-   import streamlit as st
-   from chatbot import SmartWasteChatbot
-   import pandas as pd
-   
-   def main():
-       st.set_page_config(
-           page_title="Smart Waste Assistant",
-           page_icon="🤖",
-           layout="wide"
-       )
-       
-       # Sidebar avec informations
-       with st.sidebar:
-           st.title("🌱 Smart Waste")
-           st.markdown("---")
-           st.info("Assistant intelligent pour la gestion des déchets sur le campus")
-           
-           # Statistiques
-           st.subheader("📊 Statistiques")
-           st.metric("Zones couvertes", "14")
-           st.metric("Points de collecte", "42")
-           st.metric("Utilisateurs actifs", "156")
-       
-       # Interface principale
-       st.title("🤖 Assistant Smart Waste Detection")
-       st.markdown("Trouvez les poubelles les plus proches et obtenez des conseils de tri personnalisés")
-       
-       # Initialisation du chatbot
-       if 'chatbot' not in st.session_state:
-           st.session_state.chatbot = SmartWasteChatbot()
-           st.session_state.messages = []
-       
-       # Interface de chat
-       with st.container():
-           st.subheader("💬 Chat")
-           
-           # Affichage de l'historique
-           for message in st.session_state.messages:
-               with st.chat_message(message["role"]):
-                   st.markdown(message["content"])
-           
-           # Nouvelle message
-           if prompt := st.chat_input("Dites-moi où vous êtes..."):
-               # Message utilisateur
-               st.session_state.messages.append({"role": "user", "content": prompt})
-               with st.chat_message("user"):
-                   st.markdown(prompt)
-               
-               # Réponse du chatbot
-               location = st.session_state.chatbot.extract_location(prompt)
-               response = st.session_state.chatbot.generate_response(location, prompt)
-               
-               st.session_state.messages.append({"role": "assistant", "content": response})
-               with st.chat_message("assistant"):
-                   st.markdown(response)
-       
-       # Boutons d'action rapide
-       st.subheader("🚀 Actions rapides")
-       col1, col2, col3, col4 = st.columns(4)
-       
-       with col1:
-           if st.button("📍 Voir toutes les zones"):
-               st.info("Affichage de toutes les zones du campus...")
-       
-       with col2:
-           if st.button("🗺️ Carte interactive"):
-               st.info("Ouverture de la carte interactive...")
-       
-       with col3:
-           if st.button("📊 Statistiques"):
-               st.info("Affichage des statistiques d'utilisation...")
-       
-       with col4:
-           if st.button("🔄 Réinitialiser"):
-               st.session_state.messages = []
-               st.rerun()
-
-------------------------------------------------------------
-7. Métriques et performance
-------------------------------------------------------------
-
-**7.1 Métriques d'utilisation**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 30 35 35
-
-   * - Métrique
-     - Valeur actuelle
-     - Objectif
-   * - Taux de reconnaissance des lieux
-     - 94.2%
-     - > 95%
-   * - Temps de réponse moyen
-     - 0.8 secondes
-     - < 1 seconde
-   * - Satisfaction utilisateur
-     - 4.6/5
-     - > 4.5/5
-   * - Requêtes résolues au 1er essai
-     - 87.3%
-     - > 90%
-
-**7.2 Analyse des interactions populaires**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 40 30 30
-
-   * - Type de requête
-     - Fréquence
-     - Taux de succès
-   * - Localisation de poubelles
-     - 45.2%
-     - 92.1%
-   * - Conseils de tri
-     - 28.7%
-     - 89.4%
-   * - Navigation détaillée
-     - 15.6%
-     - 85.7%
-   * - Informations sur les zones
-     - 10.5%
-     - 96.8%
-
-**7.3 Optimisations futures**
-
-- **Reconnaissance vocale** : Intégration de commandes vocales
-- **Réalité augmentée** : Overlay d'informations via caméra
-- **Notifications push** : Alertes de remplissage des poubelles
-- **Gamification** : Points et badges pour encourager le tri
-- **Multilingue** : Support anglais et arabe
-- **IA prédictive** : Anticipation des besoins utilisateur
-
-------------------------------------------------------------
-8. Cas d'usage avancés
-------------------------------------------------------------
-
-**8.1 Intégration avec IoT**
-
-Le chatbot peut recevoir des données en temps réel des capteurs IoT :
-
-.. code-block:: python
-
-   def get_bin_status(self, bin_id: str) -> Dict:
-       """
-       Récupère le statut en temps réel d'une poubelle
-       
-       Args:
-           bin_id (str): Identifiant unique de la poubelle
-           
-       Returns:
-           Dict: Statut de la poubelle (niveau, dernière collecte, etc.)
-       """
-       # Simulation d'une requête IoT
-       bin_status = {
-           'id': bin_id,
-           'fill_level': 0.73,  # 73% plein
-           'last_collection': '2024-06-14 08:30:00',
-           'operational': True,
-           'temperature': 22.5,
-           'location': 'TD2_entrance'
-       }
-       
-       return bin_status
-   
-   def generate_smart_recommendations(self, location: str) -> str:
-       """Génère des recommandations basées sur les données IoT"""
-       nearby_bins = self.find_nearby_bins(location)
-       recommendations = []
-       
-       for bin_info in nearby_bins:
-           status = self.get_bin_status(bin_info.get('id', 'unknown'))
-           
-           if status['fill_level'] > 0.9:
-               recommendations.append(f"⚠️ {bin_info['type']} presque pleine - chercher alternative")
-           elif status['fill_level'] < 0.3:
-               recommendations.append(f"✅ {bin_info['type']} disponible ({status['fill_level']*100:.0f}% plein)")
-       
-       return recommendations
-
-**8.2 Mode urgence et maintenance**
-
-.. code-block:: python
-
-   def handle_emergency_request(self, user_input: str, location: str) -> str:
-       """
-       Gère les requêtes d'urgence (déversement, problème de sécurité, etc.)
-       
-       Args:
-           user_input (str): Message d'urgence de l'utilisateur
-           location (str): Localisation de l'incident
-           
-       Returns:
-           str: Réponse d'urgence avec procédures
-       """
-       emergency_keywords = ['déversement', 'accident', 'danger', 'urgent', 'secours']
-       
-       if any(keyword in user_input.lower() for keyword in emergency_keywords):
-           return f"""
-   🚨 SITUATION D'URGENCE DÉTECTÉE
-   
-   📍 Lieu : {self.campus_locations.get(location, {}).get('name', 'Inconnu')}
-   
-   🔴 Actions immédiates :
-   1. Sécurisez la zone si nécessaire
-   2. Contactez la maintenance : 📞 +212-XXX-XXXX
-   3. Alertez la sécurité si danger : 📞 +212-XXX-XXXX
-   
-   🔧 Équipe de nettoyage d'urgence en route (ETA: 10-15 min)
-   
-   💡 En attendant : Délimitez la zone, évitez les contacts directs
-   
-   Incident reporté automatiquement - Référence: #{hash(user_input)%10000}
-   """
+# Chatbot Smart Waste Detection - Documentation Technique
+
+Cette documentation présente le **Chatbot Smart Waste Detection**, un assistant intelligent utilisant le traitement du langage naturel (NLP) pour aider les utilisateurs à localiser les points de collecte de déchets et obtenir des conseils de tri personnalisés sur le campus.
+
+---
+
+## 1. Architecture du Système
+
+### 1.1 Vue d'ensemble
+
+Le chatbot combine plusieurs technologies avancées :
+
+- **Traitement du langage naturel** : SpaCy avec modèles français optimisés
+- **Similarité sémantique** : Calcul de similarité cosinus pour la compréhension des requêtes
+- **Base de données dynamique** : Stockage JSON des FAQ et localisations
+- **Interface utilisateur** : Streamlit pour une expérience interactive
+- **Système de cache** : Optimisation des performances avec mise en cache des embeddings
+
+```
+Utilisateur (Question)
+        ↓
+Normalisation du texte
+        ↓
+Extraction d'entités (lieux)
+        ↓
+Calcul de similarité sémantique
+        ↓
+Recherche dans FAQ/Localisations
+        ↓
+Génération de réponse contextualisée
+        ↓
+Interface utilisateur (Streamlit/Console)
+```
+
+### 1.2 Composants principaux
+
+**WasteChatbot** : Classe principale gérant :
+- Traitement des requêtes utilisateur
+- Recherche de correspondances dans la FAQ
+- Gestion des requêtes de localisation
+- Système de suggestions intelligentes
+- Journalisation des conversations
+
+---
+
+## 2. Fonctionnalités Techniques
+
+### 2.1 Système de traitement NLP
+
+```python
+# Chargement du modèle NLP avec fallback intelligent
+try:
+    nlp = spacy.load("fr_dep_news_trf")  # Modèle transformer haute précision
+except:
+    nlp = spacy.load("fr_core_news_md")  # Fallback si transformer indisponible
+```
+
+**Caractéristiques** :
+- Support prioritaire des modèles transformer pour une meilleure précision
+- Fallback automatique vers des modèles standards
+- Traitement optimisé des requêtes en français
+- Extraction automatique d'entités et de contexte
+
+### 2.2 Normalisation et synonymes
+
+Le système intègre une normalisation intelligente du texte :
+
+```python
+synonyms = {
+    "td 1": "td1",
+    "amphi a": "amphi a",
+    "math info": "département math_info",
+    "méca": "mécanique",
+    "energie": "énergétique"
+}
+
+def normalize_text(text):
+    text = text.lower().strip()
+    # Remplacement des synonymes
+    for syn, main in synonyms.items():
+        text = text.replace(syn, main)
+    # Suppression des caractères spéciaux
+    text = re.sub(r'[^\w\s]', '', text)
+    return text
+```
+
+### 2.3 Système de similarité sémantique
+
+**Algorithme de correspondance** :
+- Utilisation de la similarité cosinus entre vecteurs de mots
+- Seuil de confiance ajustable (0.72 par défaut)
+- Cache des embeddings pour optimiser les performances
+- Recherche dans la FAQ et les localisations
+
+```python
+def find_best_match(self, query):
+    """Trouve la meilleure correspondance avec score de confiance"""
+    query_vec = self.get_embedding(query)
+    similarities = cosine_similarity([query_vec], faq_vectors)[0]
+    best_idx = np.argmax(similarities)
+    return questions[best_idx], similarities[best_idx]
+```
+
+---
+
+## 3. Gestion des Données
+
+### 3.1 Structure des fichiers de données
+
+Le système utilise des fichiers JSON pour une gestion flexible des données :
+
+**data/faq.json** :
+```json
+{
+    "Puis-je recycler une bouteille en plastique ?": "✅ Oui, les bouteilles en plastique vont dans le bac de recyclage.",
+    "Où jeter les déchets organiques ?": "🥬 Les déchets organiques vont dans le composteur du jardin.",
+    "Comment trier le verre ?": "🍾 Le verre va dans les conteneurs spécialisés, retirez les bouchons."
+}
+```
+
+**data/locations.json** :
+```json
+{
+    "cafétéria": {
+        "poubelle": "📍 À gauche de la sortie de la cafétéria, à côté de la fontaine.",
+        "entrée": "🚪 L'entrée principale est en face du bâtiment D."
+    },
+    "bibliothèque": {
+        "poubelle": "📍 Trois points de collecte : accueil, zone lecture, et réserve.",
+        "entrée": "🚪 Entrée principale côté parking étudiant."
+    }
+}
+```
+
+### 3.2 Chargement dynamique des données
+
+```python
+def load_data():
+    data_dir = Path("data")
+    data_dir.mkdir(exist_ok=True)
+    
+    # Chargement avec création automatique si fichiers absents
+    if faq_path.exists():
+        with open(faq_path, 'r', encoding='utf-8') as f:
+            faq = json.load(f)
+    else:
+        # Initialisation avec données par défaut
+        faq = default_faq_data
+        with open(faq_path, 'w', encoding='utf-8') as f:
+            json.dump(faq, f, ensure_ascii=False, indent=2)
+    
+    return faq, locations
+```
+
+---
+
+## 4. Interface Utilisateur
+
+### 4.1 Interface Streamlit
+
+**Fonctionnalités** :
+- Chat interactif avec historique des conversations
+- Interface responsive et intuitive
+- Gestion d'état avec `st.session_state`
+- Indicateurs de progression pour les recherches
+
+```python
+def run_chatbot():
+    st.title("♻ Assistant Intelligent de Tri des Déchets")
+    st.markdown("Posez vos questions sur le recyclage ou la localisation des poubelles")
+    
+    # Gestion de l'historique de conversation
+    if 'history' not in st.session_state:
+        st.session_state.history = []
+    
+    # Interface de chat avec messages persistants
+    for msg in st.session_state.history:
+        with st.chat_message(msg['role']):
+            st.markdown(msg['content'])
+```
+
+### 4.2 Mode console
+
+Pour les tests et le développement :
+
+```python
+if __name__ == "__main__":
+    print("👋 Bonjour ! Posez-moi vos questions sur le tri des déchets.")
+    chatbot = WasteChatbot()
+    
+    while True:
+        query = input("Vous: ")
+        if query.lower() in ['exit', 'quit', 'bye']:
+            break
+        
+        response = chatbot.process_query(query)
+        print(f"Assistant: {response}")
+```
+
+---
+
+## 5. Système de Recherche Intelligent
+
+### 5.1 Traitement des requêtes de localisation
+
+```python
+def handle_location_query(self, query):
+    """Gestion améliorée des requêtes de localisation"""
+    query = normalize_text(query)
+    best_match = None
+    best_score = 0
+    
+    for location in self.locations:
+        # Correspondance exacte prioritaire
+        if normalize_text(location) in query:
+            return self.locations[location]
+        
+        # Similarité sémantique pour requêtes approximatives
+        score = cosine_similarity(
+            [self.get_embedding(location)],
+            [self.get_embedding(query)]
+        )[0][0]
+        
+        if score > best_score:
+            best_score = score
+            best_match = location
+    
+    # Retour si score suffisant (seuil : 0.65)
+    if best_score > 0.65:
+        return self.locations[best_match]
+    
+    return None
+```
+
+### 5.2 Système de suggestions
+
+Quand la confiance est faible, le système propose des alternatives :
+
+```python
+# Suggestions si faible confiance
+similar_questions = [
+    q for q in questions 
+    if cosine_similarity(
+        [self.get_embedding(q)],
+        [self.get_embedding(query)]
+    )[0][0] > 0.5
+][:3]
+
+response = "🤔 Je ne suis pas sûr de comprendre. Voici des suggestions :\n"
+response += "\n".join(f"• {q}" for q in similar_questions)
+```
+
+---
+
+## 6. Optimisations et Performances
+
+### 6.1 Système de cache
+
+```python
+def get_embedding(self, text):
+    """Cache les embeddings pour améliorer les performances"""
+    if text not in self.vector_cache:
+        self.vector_cache[text] = nlp(text).vector
+    return self.vector_cache[text]
+```
+
+### 6.2 Statistiques d'utilisation
+
+Le chatbot collecte des métriques pour l'amélioration continue :
+
+```python
+self.stats = defaultdict(int)
+
+# Tracking par type de requête
+self.stats['location_queries'] += 1  # Requêtes de localisation
+self.stats['faq_queries'] += 1       # Questions FAQ
+self.stats['unknown_queries'] += 1   # Requêtes non comprises
+```
+
+### 6.3 Journalisation
+
+```python
+def log_conversation(self, query, response):
+    """Journalisation des conversations"""
+    self.conversation_history.append({
+        'query': query,
+        'response': response,
+        'timestamp': datetime.now().isoformat()
+    })
+```
+
+---
+
+## 7. Installation et Configuration
+
+### 7.1 Dépendances requises
+
+```bash
+# Installation des packages principaux
+pip install spacy scikit-learn numpy streamlit
+
+# Téléchargement des modèles français
+python -m spacy download fr_core_news_md
+python -m spacy download fr_dep_news_trf  # Optionnel, pour de meilleures performances
+```
+
+### 7.2 Structure des fichiers
+
+```
+projet/
+├── main.py                 # Script principal
+├── data/
+│   ├── faq.json           # Base de données FAQ
+│   └── locations.json     # Données de localisation
+├── requirements.txt       # Dépendances
+└── README.md             # Documentation utilisateur
+```
+
+### 7.3 Lancement de l'application
+
+```bash
+# Mode Streamlit (interface web)
+streamlit run main.py
+
+# Mode console (développement)
+python main.py
+```
+
+---
+
+## 8. Exemples d'Interactions
+
+### 8.1 Requête de localisation
+
+```
+Utilisateur: "Où puis-je jeter mes déchets près de la cafétéria ?"
+Assistant: "📍 À gauche de la sortie de la cafétéria, à côté de la fontaine.
+
+ℹ L'entrée principale est en face du bâtiment D."
+```
+
+### 8.2 Question sur le recyclage
+
+```
+Utilisateur: "Comment recycler une bouteille en plastique ?"
+Assistant: "✅ Oui, les bouteilles en plastique vont dans le bac de recyclage.
+
+💡 Pensez à retirer le bouchon et à rincer la bouteille avant de la jeter."
+```
+
+### 8.3 Requête approximative avec suggestions
+
+```
+Utilisateur: "Comment faire avec les déchets électroniques ?"
+Assistant: "🤔 Je ne suis pas sûr de comprendre. Voici des suggestions :
+• Où jeter les piles usagées ?
+• Comment recycler un ordinateur ?
+• Que faire des téléphones cassés ?"
+```
+
+---
+
+## 9. Extensions Possibles
+
+### 9.1 Améliorations techniques
+
+- **Modèles multilingues** : Support de l'anglais et de l'arabe
+- **Reconnaissance vocale** : Intégration avec speech-to-text
+- **Base de données relationnelle** : Migration vers PostgreSQL/MySQL
+- **API REST** : Exposition des fonctionnalités via API
+- **Analyse de sentiment** : Détection de la satisfaction utilisateur
+
+### 9.2 Fonctionnalités avancées
+
+- **Géolocalisation** : Intégration GPS pour localisation automatique
+- **Notifications push** : Alertes pour collectes de déchets
+- **Gamification** : Système de points et badges pour encourager le tri
+- **Réalité augmentée** : Overlay d'informations via caméra smartphone
+- **Prédictions IA** : Anticipation des besoins basée sur l'historique
+
+---
+
+## 10. Maintenance et Support
+
+### 10.1 Mise à jour des données
+
+Les fichiers JSON peuvent être mis à jour sans redémarrage :
+
+```python
+# Rechargement dynamique des données
+def reload_data(self):
+    """Recharge les données depuis les fichiers JSON"""
+    self.faq, self.locations = load_data()
+    self.faq_vectors = np.array([nlp(q).vector for q in self.faq.keys()])
+    self.vector_cache.clear()  # Vide le cache
+```
+
+### 10.2 Monitoring
+
+```python
+def get_performance_stats(self):
+    """Retourne les statistiques de performance"""
+    return {
+        'total_queries': sum(self.stats.values()),
+        'success_rate': (self.stats['faq_queries'] + self.stats['location_queries']) / sum(self.stats.values()),
+        'cache_hits': len(self.vector_cache),
+        'average_confidence': self.calculate_average_confidence()
+    }
+```
+
+### 10.3 Debug et logs
+
+```python
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+def process_query(self, query):
+    logger.info(f"Processing query: {query}")
+    # ... traitement
+    logger.info(f"Response generated with confidence: {confidence}")
+```
+
+---
+
+Cette documentation technique fournit une base solide pour comprendre, maintenir et étendre le chatbot Smart Waste Detection. Le système est conçu pour être facilement configurable et extensible selon les besoins spécifiques de votre environnement.
